@@ -1,5 +1,5 @@
 {
-  "name": "testApp",
+  "name": "EventPlanner",
   "integrations": {
     "capacitor": {}
   },
