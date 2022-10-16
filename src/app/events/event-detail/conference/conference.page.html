@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="events"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Détail conférence</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h2>{{loadedConferences.title}}</h2>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>
+              <p>
+                {{loadedConferences.availableFrom | date: 'HH:mm ' }} à
+                {{loadedConferences.availableTo | date: 'HH:mm' }}
+              </p>
+              <!-- <ion-button fill="none" (click)="setBookedConference()">
+                <ion-icon
+                  slot="icon-only"
+                  [name]="loadedConferences.booked ? 'bookmark' : 'bookmark-outline'"
+                ></ion-icon>
+              </ion-button> -->
+            </ion-card-subtitle>
+
+            <!-- <ion-card-title>{{loadedConferences.title}}</ion-card-title> -->
+          </ion-card-header>
+          <ion-card-content>
+            <p>{{loadedConferences.description}}</p>
+          </ion-card-content>
+          <ion-card-subtitle
+            class="ion-text-end ion-text-capitalize ion-padding-end"
+          >
+            <p>{{loadedConferences.speakers}}</p>
+          </ion-card-subtitle>
+        </ion-card>
+        <ion-button
+          download="MyFavicon"
+          href="{{loadedConferences.documents[0]}}"
+          target="_blank"
+          >Download pdf</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

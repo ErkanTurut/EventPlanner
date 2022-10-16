@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>events</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar
+    animated="true"
+    (ionChange)="onSearchChange($event)"
+    placeholder="Search event"
+  ></ion-searchbar>
+  <ion-list-header>
+    <ion-label>Events list</ion-label>
+  </ion-list-header>
+  <ion-list>
+    <ion-item *ngFor="let event of events" [routerLink]="['./', event.id] ">
+      <ion-thumbnail slot="start">
+        <ion-img alt="Silhouette of mountains" [src]="event.imageUrl">
+        </ion-img>
+      </ion-thumbnail>
+      <ion-label
+        >{{event.title}}
+        <p>{{event.description}}</p>
+        <p>
+          {{event.availableFrom | date: 'M/d/yy, h:mm a' }} to
+          {{event.availableTo | date: 'M/d/yy, h:mm a' }}
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
