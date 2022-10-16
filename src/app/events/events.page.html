@@ -2,14 +2,16 @@
   <ion-toolbar>
     <ion-title>events</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar
+      animated="true"
+      (ionChange)="onSearchChange($event)"
+      placeholder="Search event"
+    ></ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar
-    animated="true"
-    (ionChange)="onSearchChange($event)"
-    placeholder="Search event"
-  ></ion-searchbar>
   <ion-list-header>
     <ion-label>Events list</ion-label>
   </ion-list-header>
@@ -23,8 +25,8 @@
         >{{event.title}}
         <p>{{event.description}}</p>
         <p>
-          {{event.availableFrom | date: 'M/d/yy, h:mm a' }} to
-          {{event.availableTo | date: 'M/d/yy, h:mm a' }}
+          Du {{event.availableFrom | date: 'dd/MM/YY' }} au {{event.availableTo
+          | date: 'dd/MM/YY' }}
         </p>
       </ion-label>
     </ion-item>
