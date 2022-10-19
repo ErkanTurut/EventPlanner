@@ -34,34 +34,16 @@ export class LoginPage implements OnInit {
     });
   }
 
-  async register() {
-    const loading = await this.loadingController.create();
-    await loading.present();
-    this.authService
-      .register(this.credentials.value)
-      .then((res) => {
-        if (res.user.uid) {
-          loading.dismiss();
-          this.router.navigateByUrl('/events', { replaceUrl: true });
-        }
-      })
-      .catch(async (error) => {
-        loading.dismiss();
-        const alert = await this.alertController.create({
-          header: 'Registration failed',
-          message: error.message,
-          buttons: ['OK'],
-        });
-        await alert.present();
-      });
-  }
-
   async login() {
     const loading = await this.loadingController.create();
     await loading.present();
     this.authService
       .login(this.credentials.value)
       .then((res) => {
+        if (!res.user.emailVerified) {
+          loading.dismiss();
+          return this.router.navigate(['verify-email']);
+        }
         if (res.user.uid) {
           loading.dismiss();
           this.router.navigateByUrl('/events', { replaceUrl: true });

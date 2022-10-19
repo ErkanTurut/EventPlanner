@@ -4,20 +4,38 @@ import {
   redirectUnauthorizedTo,
   redirectLoggedInTo,
   canActivate,
+  emailVerified,
 } from '@angular/fire/auth-guard';
+
+import { AuthGuard } from './core/auth.guard';
+
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
-const redirectLoggedInToHome = () => redirectLoggedInTo(['events']);
+const redirectLoggedInToItems = () => redirectLoggedInTo(['events']);
+const onlyAllowEmailVerified = () => emailVerified;
+
 const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginPageModule),
-    ...canActivate(redirectLoggedInToHome),
+  },
+  {
+    path: 'signup',
+    loadChildren: () =>
+      import('./signup/signup.module').then((m) => m.SignupPageModule),
+  },
+  {
+    path: 'verify-email',
+    loadChildren: () =>
+      import('./verify-email/verify-email.module').then(
+        (m) => m.VerifyEmailPageModule
+      ),
   },
   {
     path: 'home',
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'events',
@@ -42,6 +60,8 @@ const routes: Routes = [
           ),
       },
     ],
+
+    canActivate: [AuthGuard],
   },
 ];
 

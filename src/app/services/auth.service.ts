@@ -5,6 +5,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  sendEmailVerification,
+  sendPasswordResetEmail,
 } from '@angular/fire/auth';
 
 @Injectable({
@@ -33,6 +35,29 @@ export class AuthService {
     } catch (e) {
       return null;
     }
+  }
+
+  // Email verification when new user registers
+  async sendVerificationMail() {
+    await sendEmailVerification(this.auth.currentUser);
+  }
+  // recover password mail
+  async recoverPassword(email: string) {
+    try {
+      await sendPasswordResetEmail(this.auth, email);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  get isLoggedIn(): boolean {
+    const user = this.auth.currentUser;
+    return user !== null && user.emailVerified !== false ? true : false;
+  }
+
+  get isEmailVerified(): boolean {
+    const user = this.auth.currentUser;
+    return user.emailVerified !== false ? true : false;
   }
 
   logout() {

@@ -5,5 +5,46 @@
 </ion-header>
 
 <ion-content>
+  <!-- registration page -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Sign Up</ion-card-title>
+    </ion-card-header>
 
+    <ion-card-content>
+      <form (ngSubmit)="signup()" [formGroup]="credentials">
+        <ion-item fill="solid" class="ion-margin-bottom">
+          <ion-input
+            type="email"
+            placeholder="Email"
+            formControlName="email"
+          ></ion-input>
+          <ion-note
+            slot="error"
+            *ngIf="(email.dirty || email.touched) && email.errors"
+            >Email is invalid</ion-note
+          >
+        </ion-item>
+        <ion-item fill="solid" class="ion-margin-bottom">
+          <ion-input
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+          ></ion-input>
+          <ion-note
+            slot="error"
+            *ngIf="(password.dirty || password.touched) && password.errors"
+            >Password needs to be 6 characters</ion-note
+          >
+        </ion-item>
+
+        <ion-button type="submit" expand="block" [disabled]="!credentials.valid"
+          >Sign Up</ion-button
+        >
+        <ion-button type="button" expand="block" color="secondary" routerLink=""
+          >Log in</ion-button
+        >
+      </form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
