@@ -18,6 +18,7 @@ const routes: Routes = [
     path: '',
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginPageModule),
+    ...canActivate(redirectLoggedInToItems),
   },
   {
     path: 'signup',
@@ -35,7 +36,7 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
   {
     path: 'events',
@@ -61,7 +62,7 @@ const routes: Routes = [
       },
     ],
 
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
 ];
 
