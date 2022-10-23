@@ -17,20 +17,10 @@
         vérifier votre boîte de réception et cliquez sur le lien pour vérifier
         votre adresse e-mail.
       </p>
-      <ion-button
-        type="button"
-        expand="block"
-        color="secondary"
-        (click)="authService.sendVerificationMail()"
+      <ion-button type="button" expand="block" color="secondary"
         >Renvoyer l'e-mail de vérification</ion-button
       >
-      <ion-button
-        type="button"
-        expand="block"
-        color="secondary"
-        (click)="authService.logout()"
-        routerLink=""
-      >
+      <ion-button type="button" expand="block" color="secondary" routerLink="">
         Retour à la page de connexion
       </ion-button>
     </ion-card-content>

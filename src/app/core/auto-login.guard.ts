@@ -1,12 +1,20 @@
 import { Injectable } from '@angular/core';
 import { CanLoad, Route, UrlSegment, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Auth } from '@angular/fire/auth';
+import { Observable, pipe } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import {
+  AuthPipe,
+  isNotAnonymous,
+  redirectUnauthorizedTo,
+  redirectLoggedInTo,
+  emailVerified,
+} from '@angular/fire/auth-guard';
+
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanLoad {
+export class AutoLoginGuard implements CanLoad {
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -20,14 +28,10 @@ export class AuthGuard implements CanLoad {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!this.authService.isLoggedIn) {
-      this.router.navigate(['/login']);
-      return false;
+    if (this.authService.isLoggedIn) {
+      this.router.navigateByUrl('/tabs', { replaceUrl: true });
+    } else {
+      return true;
     }
-    if (!this.authService.isEmailVerified) {
-      this.router.navigate(['/login']);
-      return false;
-    }
-    return true;
   }
 }

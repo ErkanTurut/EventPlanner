@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import {
   Auth,
+  getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
@@ -9,6 +10,7 @@ import {
   sendPasswordResetEmail,
 } from '@angular/fire/auth';
 
+import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -52,7 +54,8 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     const user = this.auth.currentUser;
-    return user !== null && user.emailVerified !== false ? true : false;
+    // const user = this.auth.currentUser;
+    return user !== null ? true : false;
   }
 
   get isEmailVerified(): boolean {

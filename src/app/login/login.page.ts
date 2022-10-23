@@ -42,11 +42,12 @@ export class LoginPage implements OnInit {
       .then((res) => {
         if (!res.user.emailVerified) {
           loading.dismiss();
+          this.authService.logout();
           return this.router.navigate(['verify-email']);
         }
         if (res.user.uid) {
           loading.dismiss();
-          this.router.navigateByUrl('/events', { replaceUrl: true });
+          this.router.navigateByUrl('/tabs', { replaceUrl: true });
         }
       })
       .catch(async (error) => {

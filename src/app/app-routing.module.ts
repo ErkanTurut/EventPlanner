@@ -1,24 +1,28 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+
 import {
+  canActivate,
   redirectUnauthorizedTo,
   redirectLoggedInTo,
-  canActivate,
-  emailVerified,
 } from '@angular/fire/auth-guard';
-
-import { AuthGuard } from './core/auth.guard';
+import { IntroGuard } from './core/intro.guard';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
-const redirectLoggedInToItems = () => redirectLoggedInTo(['events']);
-const onlyAllowEmailVerified = () => emailVerified;
+const redirectLoggedInToItems = () => redirectLoggedInTo(['tabs']);
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginPageModule),
+    canLoad: [IntroGuard],
     ...canActivate(redirectLoggedInToItems),
+  },
+  {
+    path: 'intro',
+    loadChildren: () =>
+      import('./intro/intro.module').then((m) => m.IntroPageModule),
   },
   {
     path: 'signup',
@@ -33,36 +37,22 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'home',
+    path: 'tabs',
     loadChildren: () =>
-      import('./home/home.module').then((m) => m.HomePageModule),
-    // canActivate: [AuthGuard],
+      import('./tabs/tabs.module').then((m) => m.TabsPageModule),
+    ...canActivate(redirectUnauthorizedToLogin),
+    // canLoad: [AuthGuard],
+  },
+
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full',
   },
   {
-    path: 'events',
-    children: [
-      {
-        path: '',
-        loadChildren: () =>
-          import('./events/events.module').then((m) => m.EventsPageModule),
-      },
-      {
-        path: ':eventId',
-        loadChildren: () =>
-          import('./events/event-detail/event-detail.module').then(
-            (m) => m.EventDetailPageModule
-          ),
-      },
-      {
-        path: ':eventId/:conferenceId',
-        loadChildren: () =>
-          import('./events/event-detail/conference/conference.module').then(
-            (m) => m.ConferencePageModule
-          ),
-      },
-    ],
-
-    // canActivate: [AuthGuard],
+    path: 'intro',
+    loadChildren: () =>
+      import('./intro/intro.module').then((m) => m.IntroPageModule),
   },
 ];
 

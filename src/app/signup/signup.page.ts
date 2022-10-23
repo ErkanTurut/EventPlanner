@@ -43,6 +43,7 @@ export class SignupPage implements OnInit {
         if (res.user.uid) {
           this.authService.sendVerificationMail();
           loading.dismiss();
+          this.authService.logout();
           this.router.navigate(['verify-email']);
         }
       })
