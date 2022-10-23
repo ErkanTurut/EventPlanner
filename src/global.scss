@@ -33,3 +33,36 @@
 @import "swiper/scss/pagination";
 @import "swiper/scss/scrollbar";
 @import "swiper/scss/zoom";
+
+:root {
+  --ion-color-primary: #5669ff;
+  --ion-color-primary-rgb: 86, 105, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #4c5ce0;
+  --ion-color-primary-tint: #6778ff;
+  --ion-color-primary-fade: rgba(86, 105, 255, 0.12);
+}
+
+ion-toolbar {
+  --min-height: 80px;
+  --background: #fff;
+  --border-style: none;
+}
+
+ion-back-button {
+  --background: transparent;
+  --color: #120d26;
+  --text-transform: capitalize;
+  --icon-margin-end: 5px;
+  --border-style: none;
+  --icon-font-weight: 700;
+}
+
+h2 {
+  font-weight: 900;
+}
+
+h3 {
+  font-weight: 700;
+}

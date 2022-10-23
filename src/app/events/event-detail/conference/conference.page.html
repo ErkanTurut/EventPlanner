@@ -1,9 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="events"></ion-back-button>
+      <ion-back-button
+        text="{{loadedEvent.title}}"
+        icon="arrow-back-outline"
+        defaultHref="tabs"
+      >
+      </ion-back-button>
     </ion-buttons>
-    <ion-title>Détail conférence</ion-title>
+    <!-- <ion-title>Détail conférence</ion-title> -->
   </ion-toolbar>
 </ion-header>
 

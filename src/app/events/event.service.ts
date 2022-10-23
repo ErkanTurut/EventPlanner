@@ -10,6 +10,7 @@ export class EventsService {
       title: 'Paris Retail Week',
       description:
         "Paris Retail Week réinvente l'expérience business à travers une offre globale pour les experts du e-commerce.",
+      location: 'Pl. de la Prte de Versailles, 75015 Paris, France',
       imageUrl:
         'https://www.bepub.com/pics/webzine/small/paris-retail-week-le-salon-du-commerce-a-la-pointe-innovation_2021-09-20.jpg',
       price: 149.99,
@@ -58,6 +59,7 @@ export class EventsService {
       id: 'e2',
       title: 'Ephec',
       description: "Une journée de cours en E-business à l'Ephec",
+      location: 'Bruxelles',
       imageUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/EPHEC_logo.svg/2560px-EPHEC_logo.svg.png',
       price: 99.99,
@@ -120,6 +122,7 @@ export class EventsService {
       id: 'e3',
       title: 'Networking for extroverts',
       description: 'You probably need this course if you are an extrovert!',
+      location: 'Online',
       imageUrl: 'https://ionicframework.com/docs/img/demos/thumbnail.svg',
       price: 99.99,
       availableFrom: new Date('2021-01-01'),
