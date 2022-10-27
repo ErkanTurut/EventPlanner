@@ -2,19 +2,24 @@ import { Injectable } from '@angular/core';
 
 import {
   Auth,
-  getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
   sendEmailVerification,
   sendPasswordResetEmail,
+  GoogleAuthProvider,
+  signInWithPopup,
+  FacebookAuthProvider,
 } from '@angular/fire/auth';
+import { User } from './user.model';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
-import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private user: User;
   constructor(private auth: Auth) {}
 
   async register({ email, password }) {
@@ -29,7 +34,7 @@ export class AuthService {
       return null;
     }
   }
-
+  //login with email
   async login({ email, password }) {
     try {
       const user = await signInWithEmailAndPassword(this.auth, email, password);
@@ -37,6 +42,15 @@ export class AuthService {
     } catch (e) {
       return null;
     }
+  }
+  //login with google provider
+  GoogleAuth() {
+    return signInWithPopup(this.auth, new GoogleAuthProvider());
+  }
+
+  //login with facebook provider
+  FacebookAuth() {
+    return signInWithPopup(this.auth, new FacebookAuthProvider());
   }
 
   // Email verification when new user registers
@@ -58,6 +72,10 @@ export class AuthService {
     return user !== null ? true : false;
   }
 
+  get currentUser() {
+    return this.auth.currentUser;
+  }
+
   get isEmailVerified(): boolean {
     const user = this.auth.currentUser;
     return user.emailVerified !== false ? true : false;
@@ -65,5 +83,13 @@ export class AuthService {
 
   logout() {
     return signOut(this.auth);
+  }
+
+  setUser(user: User) {
+    return (this.user = user);
+  }
+
+  getUserUid(): string {
+    return this.user.uid;
   }
 }

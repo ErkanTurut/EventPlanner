@@ -1,5 +1,20 @@
 .swiper {
   height: 100%;
-
+  --bullet-background-active: #fff;
   --bullet-background: #000;
+}
+
+.swiper-slide-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  text-align: center;
+  padding-top: 30px;
+  height: 288px;
+  width: 100%;
+  bottom: 0;
+
+  background: #5669ff;
+  border-radius: 48px 48px 0px 0px;
 }

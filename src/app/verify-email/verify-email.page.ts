@@ -10,4 +10,9 @@ export class VerifyEmailPage implements OnInit {
   constructor(public authService: AuthService) {}
 
   ngOnInit() {}
+
+  async sendVerificationMail() {
+    console.log(this.authService);
+    await this.authService.sendVerificationMail();
+  }
 }

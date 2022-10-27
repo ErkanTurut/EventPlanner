@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { cpuUsage } from 'process';
 import { AuthService } from '../services/auth.service';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,8 @@ export class LoginPage implements OnInit {
     private loadingController: LoadingController,
     private alertController: AlertController,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private dataService: DataService
   ) {}
 
   get email() {
@@ -60,4 +63,59 @@ export class LoginPage implements OnInit {
         await alert.present();
       });
   }
+
+  async loginWithGoogle() {
+    const loading = await this.loadingController.create();
+    await loading.present();
+    this.authService
+      .GoogleAuth()
+      .then((res) => {
+        if (!res.user.emailVerified) {
+          loading.dismiss();
+          this.authService.logout();
+          return this.router.navigate(['verify-email']);
+        }
+        if (res.user.uid) {
+          loading.dismiss();
+          this.router.navigateByUrl('/tabs', { replaceUrl: true });
+        }
+      })
+      .catch(async (error) => {
+        loading.dismiss();
+        const alert = await this.alertController.create({
+          header: 'Login failed',
+          message: error.message,
+          buttons: ['OK'],
+        });
+        await alert.present();
+      });
+  }
+
+  // async loginWithFacebook() {
+  //   const loading = await this.loadingController.create();
+  //   await loading.present();
+  //   this.authService
+  //     .FacebookAuth()
+  //     .then((res) => {
+  //       console.log(res);
+  //       if (!res.user.emailVerified) {
+  //         loading.dismiss();
+  //         this.authService.logout();
+  //         return this.router.navigate(['verify-email']);
+  //       }
+  //       if (res.user.uid) {
+  //         loading.dismiss();
+  //         this.router.navigateByUrl('/tabs', { replaceUrl: true });
+  //       }
+  //     })
+  //     .catch(async (error) => {
+  //       loading.dismiss();
+  //       const alert = await this.alertController.create({
+  //         header: 'Login failed',
+  //         message: error.message,
+  //         buttons: ['OK'],
+  //       });
+  //       await alert.present();
+  //     });
+  // }
 }

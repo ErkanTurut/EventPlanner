@@ -1,53 +1,89 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-header> </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Login</ion-card-title>
-    </ion-card-header>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-align-self-center">
+        <ion-thumbnail class="custom">
+          <ion-img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ionic_Logo.svg/1280px-Ionic_Logo.svg.png"
+            class="custom"
+          ></ion-img>
+        </ion-thumbnail>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-align-self-center">
+        <div>
+          <h3>Sign in</h3>
+          <form (ngSubmit)="login()" [formGroup]="credentials">
+            <ion-item fill="solid" class="ion-margin-bottom" lines="none">
+              <ion-input
+                type="email"
+                placeholder="Email"
+                formControlName="email"
+                style="padding-left: 20px"
+                class="custom"
+              ></ion-input>
 
-    <ion-card-content>
-      <form (ngSubmit)="login()" [formGroup]="credentials">
-        <ion-item fill="solid" class="ion-margin-bottom">
-          <ion-input
-            type="email"
-            placeholder="Email"
-            formControlName="email"
-          ></ion-input>
-          <ion-note
-            slot="error"
-            *ngIf="(email.dirty || email.touched) && email.errors"
-            >Email is invalid</ion-note
-          >
-        </ion-item>
-        <ion-item fill="solid" class="ion-margin-bottom">
-          <ion-input
-            type="password"
-            placeholder="Password"
-            formControlName="password"
-          ></ion-input>
-          <ion-note
-            slot="error"
-            *ngIf="(password.dirty || password.touched) && password.errors"
-            >Password needs to be 6 characters</ion-note
-          >
-        </ion-item>
+              <ion-note
+                slot="error"
+                *ngIf="(email.dirty || email.touched) && email.errors"
+                >Email is invalid</ion-note
+              >
+            </ion-item>
+            <ion-item fill="solid" class="ion-margin-bottom" lines="none">
+              <ion-input
+                type="password"
+                placeholder="Password"
+                formControlName="password"
+                class="custom"
+              ></ion-input>
+              <ion-note
+                slot="error"
+                *ngIf="(password.dirty || password.touched) && password.errors"
+                >Password needs to be 6 characters</ion-note
+              >
+            </ion-item>
+            <p class="ion-text-end">Forgot Password?</p>
+            <div class="buttons-container">
+              <ion-button
+                type="submit"
+                expand="block"
+                [disabled]="!credentials.valid"
+                class="button-login"
+              >
+                Log in
+                <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+              ></ion-button>
+              <ion-text color="medium">
+                <h3 class="ion-text-center">OR</h3>
+              </ion-text>
 
-        <ion-button type="submit" expand="block" [disabled]="!credentials.valid"
-          >Log in</ion-button
-        >
-        <ion-button
-          type="button"
-          expand="block"
-          color="secondary"
-          routerLink="/signup"
-          >Create account</ion-button
-        >
-      </form>
-    </ion-card-content>
-  </ion-card>
+              <ion-button
+                type="button"
+                expand="block"
+                color="light"
+                class="button-create"
+                (click)="loginWithGoogle()"
+                >Login with Google</ion-button
+              >
+              <ion-button
+                type="button"
+                expand="block"
+                color="light"
+                class="button-create"
+                >Login with Facebook</ion-button
+              >
+
+              <p>
+                Vous n'avez pas de compte ?
+                <a routerLink="/signup">Créer</a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

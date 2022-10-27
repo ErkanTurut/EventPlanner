@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { cpuUsage } from 'process';
 import { Event } from '../event.model';
 import { EventsService } from '../event.service';
 
@@ -26,7 +27,14 @@ export class EventDetailPage implements OnInit {
       this.loadedEvent = this.eventsService.getEvent(eventId);
     });
   }
+
   setBookedConference(conferenceId: string) {
     this.eventsService.setBookedConference(this.loadedEvent.id, conferenceId);
+  }
+  onSearchChange(searchTerm: any) {
+    this.loadedEvent.conferences = this.eventsService.searchConferences(
+      searchTerm.detail.value,
+      this.loadedEvent.id
+    );
   }
 }

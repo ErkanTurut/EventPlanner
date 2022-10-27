@@ -57,7 +57,7 @@ export class EventsService {
     },
     {
       id: 'e2',
-      title: 'Ephec',
+      title: 'Ephec cours',
       description: "Une journée de cours en E-business à l'Ephec",
       location: 'Bruxelles',
       imageUrl:
@@ -213,6 +213,18 @@ export class EventsService {
     return this.events.filter((event) => {
       return event.title.toLowerCase().includes(searchTerm.toLowerCase());
     });
+  }
+
+  searchConferences(searchTerm: string, eventId: string) {
+    return this.events
+      .find((event) => {
+        return event.id === eventId;
+      })
+      .conferences.filter((conference) => {
+        return conference.title
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      });
   }
 
   setBookedConference(eventId: string, conferenceId: string) {
