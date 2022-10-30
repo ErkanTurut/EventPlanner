@@ -1,37 +1,64 @@
 import { Injectable } from '@angular/core';
-import {
-  Firestore,
-  collection,
-  collectionData,
-  doc,
-  docData,
-  addDoc,
-  deleteDoc,
-  updateDoc,
-} from '@angular/fire/firestore';
 
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from '@angular/fire/compat/firestore';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+import { User } from './user.model';
+import { Event } from './events.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  constructor(private firstore: Firestore) {}
+  constructor(private firestore: AngularFirestore) {}
 
-  getUser(uid: string) {
-    return docData(doc(this.firstore, `users`, uid));
+  getUsers(): Observable<any[]> {
+    return this.firestore
+      .collection<User>('users')
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((a) => {
+            const data = a.payload.doc.data() as User;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
   }
-  getUsers() {
-    return collectionData(collection(this.firstore, 'users'));
+
+  getUser(id: string): Observable<any> {
+    return this.firestore
+      .collection<User>('users', (ref) => ref.where('id', '==', id))
+      .valueChanges();
   }
 
   addUser(user: User) {
-    return addDoc(collection(this.firstore, `users/${user.id}`), user);
+    return this.firestore.collection<User>('users').add(user);
+  }
+
+  //event
+
+  getEvents(collection: string): Observable<any[]> {
+    return this.firestore
+      .collection(collection)
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((a) => {
+            const data = a.payload.doc.data() as Event;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
+
+  addEvent(event: Event) {
+    return this.firestore.collection('events').add(event);
   }
 }
