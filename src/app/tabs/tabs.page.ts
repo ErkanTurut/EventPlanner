@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { AuthService } from '../services/auth.service';
 import { User } from '../services/user.model';
+import { throws } from 'assert';
 @Component({
   selector: 'app-tabs',
   templateUrl: './tabs.page.html',
@@ -17,8 +18,8 @@ export class TabsPage implements OnInit {
   ngOnInit() {
     this.dataService
       .getUser(this.authService.currentUser.uid)
-      .subscribe((o) => {
-        if (!o.length) {
+      .subscribe((res) => {
+        if (!res.length) {
           return this.dataService.addUser({
             id: this.authService.currentUser.uid,
             role: 'user',
@@ -29,5 +30,12 @@ export class TabsPage implements OnInit {
       });
   }
 
-  test() {}
+  test() {
+    this.dataService.getEvent('6rgRtGjocJOKjU3J7NtE').subscribe((res) => {
+      console.log(res);
+    });
+    this.dataService.getConferences('6rgRtGjocJOKjU3J7NtE').subscribe((res) => {
+      console.log(res);
+    });
+  }
 }

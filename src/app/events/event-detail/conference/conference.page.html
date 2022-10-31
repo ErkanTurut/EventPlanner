@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button
-        text="{{loadedEvent.title}}"
+        text="{{loadedEvent?.title}}"
         icon="arrow-back-outline"
         defaultHref="tabs"
       >
@@ -16,34 +16,25 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-card>
+        <ion-card *ngIf="isDataAvailable">
           <ion-card-header>
-            <ion-card-subtitle>
-              <!-- <ion-button fill="none" (click)="setBookedConference()">
-                <ion-icon
-                  slot="icon-only"
-                  [name]="loadedConferences.booked ? 'bookmark' : 'bookmark-outline'"
-                ></ion-icon>
-              </ion-button> -->
-            </ion-card-subtitle>
-
-            <!-- <ion-card-title>{{loadedConferences.title}}</ion-card-title> -->
+            <ion-card-subtitle> </ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            <ion-card-title>{{loadedConferences.title}}</ion-card-title><br />
+            <ion-card-title>{{loadedConference?.title}}</ion-card-title><br />
 
-            <p>{{loadedConferences.description}}</p>
+            <p>{{loadedConference?.description}}</p>
           </ion-card-content>
           <ion-card-subtitle class="ion-text-capitalize">
             <ion-row class="ion-justify-content-between">
               <ion-col>
                 <p>
-                  {{loadedConferences.availableFrom | date: 'HH:mm ' }} à
-                  {{loadedConferences.availableTo | date: 'HH:mm' }}
+                  {{loadedConference?.availableFrom.toDate() | date: 'HH:mm ' }}
+                  à {{loadedConference?.availableTo.toDate() | date: 'HH:mm' }}
                 </p>
               </ion-col>
               <ion-col class="ion-text-end">
-                <p>{{loadedConferences.speakers}}</p>
+                <p>{{loadedConference?.speakers}}</p>
               </ion-col>
             </ion-row>
           </ion-card-subtitle>

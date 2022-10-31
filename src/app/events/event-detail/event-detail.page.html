@@ -15,7 +15,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="isDataAvailable">
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon name="qr-code-outline"></ion-icon>
@@ -83,8 +83,8 @@
 
           <ion-label>
             <h3>
-              {{loadedEvent.availableFrom | date: 'dd/MM/YY' }} -
-              {{loadedEvent.availableTo | date: 'dd/MM/YY' }}
+              {{loadedEvent.availableFrom.toDate() | date: 'dd/MM/YY' }} -
+              {{loadedEvent.availableTo.toDate() | date: 'dd/MM/YY' }}
             </h3>
           </ion-label>
         </ion-item>
@@ -104,11 +104,7 @@
         <ion-text color="dark" class="ion-text-start event-detail-description">
           <h3>Description</h3>
           <p style="text-align: justify; margin-bottom: 0px">
-            Événement phare du retail, la Paris Retail Week est le plus grand
-            rendez-vous dEurope à destination de tout l’écosystème du commerce.
-            Elle rassemble chaque années des milliers d’acteurs du E-Commerce
-            qui poseront un regard neuf sur les nouveaux enjeux du momen.Entre
-            conférences, Ateliers, Pitchs, remise d’Awards, Innovation Tours,
+            {{loadedEvent.description}}
           </p>
         </ion-text>
       </ion-col>
@@ -145,8 +141,8 @@
               <h2>{{conf.title}}</h2>
               <p>{{conf.description}}</p>
               <p>
-                {{conf.availableFrom | date: 'HH:mm' }} - {{conf.availableTo |
-                date: 'HH:mm' }}
+                {{conf.availableFrom.toDate() | date: 'HH:mm' }} -
+                {{conf.availableTo.toDate() | date: 'HH:mm' }}
               </p>
             </ion-label>
             <ion-icon

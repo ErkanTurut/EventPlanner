@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { User } from './user.model';
-import { Event } from './events.model';
+import { Event, ConferencesItem } from './events.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +16,7 @@ import { Event } from './events.model';
 export class DataService {
   constructor(private firestore: AngularFirestore) {}
 
+  //users functions here
   getUsers(): Observable<any[]> {
     return this.firestore
       .collection<User>('users')
@@ -41,11 +42,12 @@ export class DataService {
     return this.firestore.collection<User>('users').add(user);
   }
 
-  //event
+  //events functions here
 
-  getEvents(collection: string): Observable<any[]> {
+  //get all events
+  getEvents(): Observable<any[]> {
     return this.firestore
-      .collection(collection)
+      .collection('events')
       .snapshotChanges()
       .pipe(
         map((actions) =>
@@ -58,7 +60,54 @@ export class DataService {
       );
   }
 
+  //get event by id
+  getEvent(eventId: string): Observable<any> {
+    return this.firestore
+      .collection<Event>('events')
+      .doc(eventId)
+      .valueChanges();
+  }
+
+  //add event
   addEvent(event: Event) {
     return this.firestore.collection('events').add(event);
+  }
+
+  //conferences functions here
+  //get all conferences
+  getConferences(eventId: string): Observable<any> {
+    return this.firestore
+      .collection<Event>('events')
+      .doc(eventId)
+      .collection<ConferencesItem>('conferences')
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((a) => {
+            const data = a.payload.doc.data() as ConferencesItem;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
+
+  //get conference by id
+  getConference(eventId: string, conferenceId: string): Observable<any> {
+    return this.firestore
+      .collection<Event>('events')
+      .doc(eventId)
+      .collection<ConferencesItem>('conferences')
+      .doc(conferenceId)
+      .valueChanges();
+  }
+
+  //add conference
+  addConference(eventId: string, conference: ConferencesItem) {
+    return this.firestore
+      .collection('events')
+      .doc(eventId)
+      .collection('conferences')
+      .add(conference);
   }
 }

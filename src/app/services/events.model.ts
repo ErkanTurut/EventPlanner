@@ -1,27 +1,30 @@
-export interface conferencesItem {
-  id: string;
+import { Timestamp } from 'firebase/firestore';
+
+export interface ConferencesItem {
+  id?: string;
   availablity: boolean;
   title: string;
   description: string;
   speakers: string[];
-  availableFrom: Date;
-  availableTo: Date;
+  availableFrom: Timestamp;
+  availableTo: Timestamp;
   location: string;
   booked: boolean;
   attendance: number;
   price: number;
   vip: boolean;
-  documents: string[];
+  documents?: string[];
 }
 
 export interface Event {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   location: string;
   imageUrl: string;
   price: number;
-  availableFrom: Date;
-  availableTo: Date;
-  conferencesId?: string[];
+  availableFrom: Timestamp;
+  availableTo: Timestamp;
+  conferences?: ConferencesItem[];
+  updated?: Date;
 }
