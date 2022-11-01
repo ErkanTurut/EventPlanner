@@ -76,10 +76,6 @@ export class AuthService {
     return this.auth.currentUser;
   }
 
-  get userID(): string {
-    return this.auth.currentUser.uid;
-  }
-
   get isEmailVerified(): boolean {
     const user = this.auth.currentUser;
     return user.emailVerified !== false ? true : false;

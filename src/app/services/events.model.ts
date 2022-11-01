@@ -10,7 +10,7 @@ export interface ConferencesItem {
   availableTo: Timestamp;
   location: string;
   booked: boolean;
-  attendance: number;
+  participants: string[];
   price: number;
   vip: boolean;
   documents?: string[];

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { Event } from 'src/app/services/events.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-event-detail',
   templateUrl: './event-detail.page.html',
@@ -13,12 +15,13 @@ export class EventDetailPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private dataService: DataService
+    private dataService: DataService,
+    private authService: AuthService
   ) {}
 
   async ngOnInit() {
     this.isDataAvailable = false;
-    this.activatedRoute.paramMap.subscribe((paramMap) => {
+    await this.activatedRoute.paramMap.subscribe((paramMap) => {
       if (!paramMap.has('eventId')) {
         // redirect
         return;
@@ -27,22 +30,40 @@ export class EventDetailPage implements OnInit {
 
       this.dataService.getEvent(eventId).subscribe(async (res) => {
         this.loadedEvent = await res;
-      });
-
-      this.dataService.getConferences(eventId).subscribe(async (res) => {
-        this.loadedEvent.conferences = await res;
-        this.isDataAvailable = true;
+        this.dataService.getConferences(eventId).subscribe(async (res) => {
+          this.loadedEvent.conferences = await res;
+          this.isDataAvailable = true;
+          // console.log(this.loadedEvent);
+        });
       });
     });
   }
 
   setBookedConference(conferenceId: string) {
+    this.dataService.bookConference(
+      this.loadedEvent.id,
+      conferenceId,
+      this.authService.currentUser.uid,
+      this.loadedEvent.conferences.find((c) => c.id === conferenceId)
+    );
     // this.eventsService.setBookedConference(this.loadedEvent.id, conferenceId);
   }
+
+  isParticipants(conferenceId: string) {
+    if (!this.loadedEvent) return false;
+    return this.loadedEvent.conferences
+      .find((c) => c.id === conferenceId)
+      .participants.includes(this.authService.currentUser.uid);
+  }
   onSearchChange(searchTerm: any) {
-    // this.loadedEvent.conferences = this.eventsService.searchConferences(
-    //   searchTerm.detail.value,
-    //   this.loadedEvent.id
-    // );
+    // this.loadedEvent.conferences = this.initEvent.conferences;
+    // const val = searchTerm.target.value;
+    // if (val && val.trim() !== '') {
+    //   this.loadedEvent.conferences = this.loadedEvent.conferences.filter(
+    //     (item) => {
+    //       return item.title.toLowerCase().includes(val.toLowerCase());
+    //     }
+    //   );
+    // }
   }
 }

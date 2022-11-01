@@ -30,14 +30,13 @@ export class ConferencePage implements OnInit {
 
       this.dataService.getEvent(eventId).subscribe(async (res) => {
         this.loadedEvent = await res;
+        this.dataService
+          .getConference(eventId, conferenceId)
+          .subscribe(async (res) => {
+            this.loadedConference = await res;
+            this.isDataAvailable = true;
+          });
       });
-
-      this.dataService
-        .getConference(eventId, conferenceId)
-        .subscribe(async (res) => {
-          this.loadedConference = await res;
-          this.isDataAvailable = true;
-        });
     });
   }
   setBookedConference() {

@@ -134,7 +134,7 @@
             <ion-checkbox
               slot="start"
               (ionChange)="setBookedConference(conf.id)"
-              checked="{{conf.booked}}"
+              checked="{{isParticipants(conf.id)}}"
             >
             </ion-checkbox>
             <ion-label>

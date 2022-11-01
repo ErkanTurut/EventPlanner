@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 
 import { User } from './user.model';
 import { Event, ConferencesItem } from './events.model';
+import { arrayUnion, arrayRemove } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -65,7 +66,14 @@ export class DataService {
     return this.firestore
       .collection<Event>('events')
       .doc(eventId)
-      .valueChanges();
+      .valueChanges()
+      .pipe(
+        map((actions) => {
+          const data = actions as Event;
+          const id = eventId;
+          return { id, ...data };
+        })
+      );
   }
 
   //add event
@@ -99,7 +107,14 @@ export class DataService {
       .doc(eventId)
       .collection<ConferencesItem>('conferences')
       .doc(conferenceId)
-      .valueChanges();
+      .valueChanges()
+      .pipe(
+        map((actions) => {
+          const data = actions as ConferencesItem;
+          const id = eventId;
+          return { id, ...data };
+        })
+      );
   }
 
   //add conference
@@ -109,5 +124,32 @@ export class DataService {
       .doc(eventId)
       .collection('conferences')
       .add(conference);
+  }
+
+  bookConference(
+    eventId: string,
+    conferenceId: string,
+    userId: string,
+    conference: ConferencesItem
+  ) {
+    if (conference.participants.includes(userId)) {
+      this.firestore
+        .collection('events')
+        .doc(eventId)
+        .collection('conferences')
+        .doc(conferenceId)
+        .update({
+          participants: arrayRemove(userId),
+        });
+    } else {
+      this.firestore
+        .collection('events')
+        .doc(eventId)
+        .collection('conferences')
+        .doc(conferenceId)
+        .update({
+          participants: arrayUnion(userId),
+        });
+    }
   }
 }
