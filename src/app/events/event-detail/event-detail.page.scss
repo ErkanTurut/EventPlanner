@@ -5,6 +5,7 @@ ion-checkbox {
 ion-button.bookmark-button {
   --padding-start: 8px;
   --padding-end: 8px;
+  --background: rgba(86, 105, 255, 0.12);
 }
 
 ion-img.event-banner {
@@ -38,7 +39,7 @@ ion-avatar {
 }
 
 ion-avatar:not(:first-child) {
-  margin-left: -20px;
+  margin-left: -23px;
 }
 
 ion-icon.event-detail-icon {

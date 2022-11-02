@@ -4,6 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 import { Event } from 'src/app/services/events.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
+import { User } from 'src/app/services/user.model';
 @Component({
   selector: 'app-event-detail',
   templateUrl: './event-detail.page.html',
@@ -12,6 +13,7 @@ import { Observable } from 'rxjs';
 export class EventDetailPage implements OnInit {
   loadedEvent: Event;
   isDataAvailable: boolean = false;
+  user: User;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -21,19 +23,24 @@ export class EventDetailPage implements OnInit {
 
   async ngOnInit() {
     this.isDataAvailable = false;
-    await this.activatedRoute.paramMap.subscribe((paramMap) => {
+    await this.activatedRoute.paramMap.subscribe(async (paramMap) => {
       if (!paramMap.has('eventId')) {
         // redirect
         return;
       }
       const eventId = paramMap.get('eventId');
 
+      this.dataService
+        .getUser(this.authService.currentUser.uid)
+        .subscribe(async (res) => {
+          this.user = await res;
+        });
+
       this.dataService.getEvent(eventId).subscribe(async (res) => {
         this.loadedEvent = await res;
         this.dataService.getConferences(eventId).subscribe(async (res) => {
           this.loadedEvent.conferences = await res;
           this.isDataAvailable = true;
-          // console.log(this.loadedEvent);
         });
       });
     });
@@ -55,6 +62,15 @@ export class EventDetailPage implements OnInit {
       .find((c) => c.id === conferenceId)
       .participants.includes(this.authService.currentUser.uid);
   }
+
+  isFavorite() {
+    return this.user[0].favoriteEvents.includes(this.loadedEvent.id);
+  }
+
+  onFavorite() {
+    this.dataService.addFavoriteEvent(this.user[0], this.loadedEvent.id);
+  }
+
   onSearchChange(searchTerm: any) {
     // this.loadedEvent.conferences = this.initEvent.conferences;
     // const val = searchTerm.target.value;

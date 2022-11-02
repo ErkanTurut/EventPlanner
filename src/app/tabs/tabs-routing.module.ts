@@ -33,9 +33,11 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'home',
+        path: 'favorites',
         loadChildren: () =>
-          import('../home/home.module').then((m) => m.HomePageModule),
+          import('../favorites/favorites.module').then(
+            (m) => m.FavoritesPageModule
+          ),
       },
       {
         path: '',

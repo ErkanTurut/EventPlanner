@@ -26,21 +26,53 @@ export class DataService {
         map((actions) =>
           actions.map((a) => {
             const data = a.payload.doc.data() as User;
-            const id = a.payload.doc.id;
-            return { id, ...data };
+            const docId = a.payload.doc.id;
+            return { docId, ...data };
           })
         )
       );
   }
 
-  getUser(id: string): Observable<any> {
+  getUser(uid: string): Observable<any> {
     return this.firestore
-      .collection<User>('users', (ref) => ref.where('id', '==', id))
-      .valueChanges();
+      .collection<User>('users', (ref) => ref.where('uid', '==', uid))
+      .snapshotChanges()
+      .pipe(
+        map((actions) =>
+          actions.map((a) => {
+            const data = a.payload.doc.data() as User;
+            const docId = a.payload.doc.id;
+            return { docId, ...data };
+          })
+        )
+      );
   }
 
   addUser(user: User) {
     return this.firestore.collection<User>('users').add(user);
+  }
+
+  updateUser(user: User) {
+    return this.firestore.collection('users').doc(user.docId).update(user);
+  }
+
+  addFavoriteEvent(user: User, eventId: string) {
+    console.log(user);
+    if (!user.favoriteEvents.includes(eventId)) {
+      this.firestore
+        .collection('users')
+        .doc(user.docId)
+        .update({
+          favoriteEvents: arrayUnion(eventId),
+        });
+    } else {
+      this.firestore
+        .collection('users')
+        .doc(user.docId)
+        .update({
+          favoriteEvents: arrayRemove(eventId),
+        });
+    }
   }
 
   //events functions here
@@ -79,6 +111,11 @@ export class DataService {
   //add event
   addEvent(event: Event) {
     return this.firestore.collection('events').add(event);
+  }
+
+  //update event
+  updateEvent(eventId: string, event: Event) {
+    return this.firestore.collection('events').doc(eventId).update(event);
   }
 
   //conferences functions here
@@ -124,6 +161,20 @@ export class DataService {
       .doc(eventId)
       .collection('conferences')
       .add(conference);
+  }
+
+  //update conference
+  updateConference(
+    eventId: string,
+    conferenceId: string,
+    conference: ConferencesItem
+  ) {
+    return this.firestore
+      .collection('events')
+      .doc(eventId)
+      .collection('conferences')
+      .doc(conferenceId)
+      .update(conference);
   }
 
   bookConference(

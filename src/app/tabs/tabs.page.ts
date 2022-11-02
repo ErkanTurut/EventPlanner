@@ -21,21 +21,16 @@ export class TabsPage implements OnInit {
       .subscribe((res) => {
         if (!res.length) {
           return this.dataService.addUser({
-            id: this.authService.currentUser.uid,
+            uid: this.authService.currentUser.uid,
             role: 'user',
             displayName: this.authService.currentUser.displayName,
             email: this.authService.currentUser.email,
+            photoURL: this.authService.currentUser.photoURL,
+            favoriteEvents: [],
           });
         }
       });
   }
 
-  test() {
-    this.dataService.getEvent('6rgRtGjocJOKjU3J7NtE').subscribe((res) => {
-      console.log(res);
-    });
-    this.dataService.getConferences('6rgRtGjocJOKjU3J7NtE').subscribe((res) => {
-      console.log(res);
-    });
-  }
+  test() {}
 }

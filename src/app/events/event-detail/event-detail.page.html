@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header *ngIf="isDataAvailable">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button
@@ -9,8 +9,17 @@
       </ion-back-button>
     </ion-buttons>
     <!-- <ion-title>Détail évenement</ion-title> -->
-    <ion-button slot="end" class="bookmark-button">
-      <ion-icon slot="icon-only" name="bookmark"></ion-icon>
+    <ion-button
+      slot="end"
+      class="bookmark-button"
+      fill="clear"
+      (click)="onFavorite()"
+    >
+      <ion-icon
+        slot="icon-only"
+        [name]="isFavorite() ? 'heart' : 'heart-outline'"
+        class="icon-bookmark"
+      ></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>

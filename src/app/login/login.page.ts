@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { cpuUsage } from 'process';
 import { AuthService } from '../services/auth.service';
-import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +16,7 @@ export class LoginPage implements OnInit {
     private loadingController: LoadingController,
     private alertController: AlertController,
     private authService: AuthService,
-    private router: Router,
-    private dataService: DataService
+    private router: Router
   ) {}
 
   get email() {
