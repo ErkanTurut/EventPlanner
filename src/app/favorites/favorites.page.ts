@@ -21,17 +21,17 @@ export class FavoritesPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.dataService.getEvents().subscribe((res) => {
-      this.events = res.filter((event) => {
-        return this.user[0].favoriteEvents.includes(event.id);
-      });
-    });
-
     this.dataService
       .getUser(this.authService.currentUser.uid)
       .subscribe(async (res) => {
         this.user = await res;
       });
+
+    this.dataService.getEvents().subscribe((res) => {
+      this.events = res.filter((event) => {
+        return this.user[0].favoriteEvents.includes(event.id);
+      });
+    });
 
     //filter favorite events
   }

@@ -13,15 +13,15 @@
 <ion-content *ngIf="isDataAvailable">
   <ion-searchbar
     animated="true"
-    (ionChange)="onSearchChange($event)"
     placeholder="Search event"
+    [(ngModel)]="searchTerm"
   ></ion-searchbar>
   <ion-list-header>
     <ion-label>Events list</ion-label>
   </ion-list-header>
   <ion-list *ngIf="events.length > 0">
     <ion-item-sliding
-      *ngFor="let event of events"
+      *ngFor="let event of events | filter:searchTerm"
       [routerLink]="['./', event.id] "
     >
       <ion-item-options side="start">

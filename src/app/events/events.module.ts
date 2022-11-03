@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { EventsPageRoutingModule } from './events-routing.module';
 
 import { EventsPage } from './events.page';
@@ -13,8 +13,9 @@ import { EventsPage } from './events.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    EventsPageRoutingModule
+    EventsPageRoutingModule,
+    Ng2SearchPipeModule,
   ],
-  declarations: [EventsPage]
+  declarations: [EventsPage],
 })
 export class EventsPageModule {}

@@ -14,6 +14,7 @@ export class EventDetailPage implements OnInit {
   loadedEvent: Event;
   isDataAvailable: boolean = false;
   user: User;
+  searchTerm: string = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -69,17 +70,5 @@ export class EventDetailPage implements OnInit {
 
   onFavorite() {
     this.dataService.addFavoriteEvent(this.user[0], this.loadedEvent.id);
-  }
-
-  onSearchChange(searchTerm: any) {
-    // this.loadedEvent.conferences = this.initEvent.conferences;
-    // const val = searchTerm.target.value;
-    // if (val && val.trim() !== '') {
-    //   this.loadedEvent.conferences = this.loadedEvent.conferences.filter(
-    //     (item) => {
-    //       return item.title.toLowerCase().includes(val.toLowerCase());
-    //     }
-    //   );
-    // }
   }
 }

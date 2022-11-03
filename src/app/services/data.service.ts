@@ -57,7 +57,6 @@ export class DataService {
   }
 
   addFavoriteEvent(user: User, eventId: string) {
-    console.log(user);
     if (!user.favoriteEvents.includes(eventId)) {
       this.firestore
         .collection('users')

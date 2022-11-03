@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { EventDetailPageRoutingModule } from './event-detail-routing.module';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { EventDetailPage } from './event-detail.page';
 
@@ -13,8 +14,9 @@ import { EventDetailPage } from './event-detail.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    EventDetailPageRoutingModule
+    EventDetailPageRoutingModule,
+    Ng2SearchPipeModule,
   ],
-  declarations: [EventDetailPage]
+  declarations: [EventDetailPage],
 })
 export class EventDetailPageModule {}

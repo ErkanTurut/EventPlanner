@@ -11,8 +11,8 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./events.page.scss'],
 })
 export class EventsPage implements OnInit {
+  searchTerm: string = '';
   isDataAvailable: boolean = false;
-  private initEvent: Event[] = [];
   events: Event[] = [];
   user: User;
   constructor(
@@ -23,7 +23,6 @@ export class EventsPage implements OnInit {
   ngOnInit() {
     this.dataService.getEvents().subscribe((res) => {
       this.events = res;
-      this.initEvent = res;
     });
 
     this.dataService
@@ -32,18 +31,6 @@ export class EventsPage implements OnInit {
         this.user = await res;
         this.isDataAvailable = true;
       });
-  }
-
-  async onSearchChange(event: any) {
-    this.events = this.initEvent;
-    console.log(this.events);
-    const val = event.target.value;
-    if (val && val.trim() !== '') {
-      this.events = this.events.filter((item) => {
-        return item.title.toLowerCase().includes(val.toLowerCase());
-      });
-      console.log(this.events);
-    }
   }
 
   onDrag(event: any) {

@@ -125,7 +125,7 @@
           expand="block"
           animated="true"
           placeholder="Chercher une conférence"
-          (ionChange)="onSearchChange($event)"
+          [(ngModel)]="searchTerm"
         >
         </ion-searchbar>
       </ion-col>
@@ -139,7 +139,9 @@
     <ion-row class="ion-justify-content-center">
       <ion-col>
         <ion-list>
-          <ion-item *ngFor="let conf of loadedEvent.conferences">
+          <ion-item
+            *ngFor="let conf of loadedEvent.conferences | filter: searchTerm "
+          >
             <ion-checkbox
               slot="start"
               (ionChange)="setBookedConference(conf.id)"
@@ -164,4 +166,9 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-footer class="ion-no-border">
+    <ion-toolbar>
+      <ion-title></ion-title>
+    </ion-toolbar>
+  </ion-footer>
 </ion-content>
