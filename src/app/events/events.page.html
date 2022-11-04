@@ -1,12 +1,16 @@
 <ion-header *ngIf="isDataAvailable">
   <ion-toolbar>
-    <ion-title>events</ion-title>
-    <ion-avatar slot="end">
+    <ion-avatar slot="start">
       <img
         alt="Silhouette of a person's head"
         [src]="user[0].photoURL ? user[0].photoURL : 'https://ionicframework.com/docs/img/demos/avatar.svg' "
       />
     </ion-avatar>
+
+    <p class="ion-no-margin ion-margin-start">{{getWelcomeMessage()}}</p>
+    <h2 class="ion-no-margin ion-margin-start">
+      {{user[0].displayName || user[0].firstName + " " + user[0].lastName }}
+    </h2>
   </ion-toolbar>
 </ion-header>
 
@@ -23,14 +27,16 @@
     <ion-item-sliding
       *ngFor="let event of events | filter:searchTerm"
       [routerLink]="['./', event.id] "
+      (ionSwipe)="onFavorite(event, slidingItem)"
+      #slidingItem
     >
       <ion-item-options side="start">
-        <ion-item-option>
+        <ion-item-option [color]="isFavorite(event) ? 'danger' : ''">
           <ion-icon
             slot="icon-only"
             [name]="isFavorite(event) ? 'heart' : 'heart-outline'"
             color="light"
-            (click)="onFavorite(event)"
+            (click)="onFavorite(event, slidingItem)"
           ></ion-icon>
         </ion-item-option>
       </ion-item-options>

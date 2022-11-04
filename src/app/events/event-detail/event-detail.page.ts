@@ -40,7 +40,9 @@ export class EventDetailPage implements OnInit {
       this.dataService.getEvent(eventId).subscribe(async (res) => {
         this.loadedEvent = await res;
         this.dataService.getConferences(eventId).subscribe(async (res) => {
-          this.loadedEvent.conferences = await res;
+          this.loadedEvent.conferences = await res.sort((a, b) => {
+            return a.availableFrom - b.availableFrom;
+          });
           this.isDataAvailable = true;
         });
       });

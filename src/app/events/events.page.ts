@@ -22,7 +22,9 @@ export class EventsPage implements OnInit {
 
   ngOnInit() {
     this.dataService.getEvents().subscribe((res) => {
-      this.events = res;
+      this.events = res.sort((a, b) => {
+        return a.availableFrom - b.availableFrom;
+      });
     });
 
     this.dataService
@@ -37,11 +39,27 @@ export class EventsPage implements OnInit {
     console.log(event);
   }
 
-  onFavorite(event: Event) {
+  getWelcomeMessage() {
+    const date = new Date();
+    const hour = date.getHours();
+    if (hour < 12) {
+      return 'Bonne journée👋 !';
+    } else if (hour < 18) {
+      return 'Bonne après-midi✌️ !';
+    } else {
+      return 'Bonne soirée🌙 !';
+    }
+  }
+
+  onFavorite(event: Event, slidingItem: any) {
+    slidingItem.close();
     this.dataService.addFavoriteEvent(this.user[0], event.id);
   }
 
   isFavorite(event: Event) {
     return this.user[0].favoriteEvents.includes(event.id);
+  }
+  test(event) {
+    console.log(event);
   }
 }
