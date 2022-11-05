@@ -1,38 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { Event } from 'src/app/services/events.model';
-import { User } from 'src/app/services/user.model';
-
 import { DataService } from '../services/data.service';
+import { Event } from '../services/events.model';
+import { User } from '../services/user.model';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-favorites',
-  templateUrl: './favorites.page.html',
-  styleUrls: ['./favorites.page.scss'],
+  selector: 'app-my-events',
+  templateUrl: './my-events.page.html',
+  styleUrls: ['./my-events.page.scss'],
 })
-export class FavoritesPage implements OnInit {
-  isDataAvailable: boolean = false;
+export class MyEventsPage implements OnInit {
   events: Event[] = [];
   user: User;
+
   constructor(
-    private dataService: DataService,
     private authService: AuthService,
+    private dataService: DataService,
     private router: Router
   ) {}
 
   ngOnInit() {
     this.dataService
       .getUser(this.authService.currentUser.uid)
-      .subscribe(async (res) => {
-        this.user = await res;
+      .subscribe((res) => {
+        this.user = res;
+
         this.dataService.getEvents().subscribe((res) => {
-          this.events = res.filter((event) => {
-            return this.user[0].favoriteEvents.includes(event.id);
+          this.events = res.filter((e) => {
+            return e.organizer.includes(this.user[0].uid);
           });
         });
       });
-
-    //filter favorite events
   }
 
   nav(eventId: string) {
@@ -42,8 +40,8 @@ export class FavoritesPage implements OnInit {
   handleRefresh(event: any) {
     setTimeout(() => {
       this.dataService.getEvents().subscribe((res) => {
-        this.events = res.filter((event) => {
-          return this.user[0].favoriteEvents.includes(event.id);
+        this.events = res.filter((e) => {
+          return e.organizer.includes(this.user[0].uid);
         });
       });
       event.target.complete();

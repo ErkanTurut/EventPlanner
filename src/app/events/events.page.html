@@ -23,7 +23,7 @@
   <ion-list-header>
     <ion-label>Events list</ion-label>
   </ion-list-header>
-  <ion-list *ngIf="events.length > 0">
+  <ion-list *ngIf="events.length > 0" lines="none">
     <ion-item-sliding
       *ngFor="let event of events | filter:searchTerm"
       [routerLink]="['./', event.id] "

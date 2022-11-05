@@ -57,6 +57,10 @@ const routes: Routes = [
     path: 'favorites',
     loadChildren: () => import('./favorites/favorites.module').then( m => m.FavoritesPageModule)
   },
+  {
+    path: 'my-events',
+    loadChildren: () => import('./my-events/my-events.module').then( m => m.MyEventsPageModule)
+  },
 
 ];
 

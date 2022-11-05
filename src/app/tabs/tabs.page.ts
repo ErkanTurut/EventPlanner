@@ -10,27 +10,29 @@ import { throws } from 'assert';
 })
 export class TabsPage implements OnInit {
   user: User;
+  isDataAvailable: boolean = false;
   constructor(
     private dataService: DataService,
     private authService: AuthService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.dataService
       .getUser(this.authService.currentUser.uid)
-      .subscribe((res) => {
+      .subscribe(async (res) => {
         if (!res.length) {
-          return this.dataService.addUser({
+          await this.dataService.addUser({
             uid: this.authService.currentUser.uid,
-            role: 'user',
+            role: 'USER',
             displayName: this.authService.currentUser.displayName,
             email: this.authService.currentUser.email,
             photoURL: this.authService.currentUser.photoURL,
             favoriteEvents: [],
+            isOrganizer: false,
           });
         }
+        this.user = await res;
+        this.isDataAvailable = true;
       });
   }
-
-  test() {}
 }

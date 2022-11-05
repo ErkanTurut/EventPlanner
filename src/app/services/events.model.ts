@@ -18,6 +18,7 @@ export interface ConferencesItem {
 
 export interface Event {
   id?: string;
+  organizer: string[];
   title: string;
   description: string;
   location: string;
@@ -26,5 +27,5 @@ export interface Event {
   availableFrom: Timestamp;
   availableTo: Timestamp;
   conferences?: ConferencesItem[];
-  updated?: Date;
+  updated?: Timestamp;
 }

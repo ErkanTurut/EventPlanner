@@ -11,4 +11,5 @@ export interface User {
   displayName?: string;
   photoURL?: string;
   favoriteEvents?: string[];
+  isOrganizer: boolean;
 }

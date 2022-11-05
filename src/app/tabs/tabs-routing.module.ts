@@ -2,6 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
+import {
+  canActivate,
+  redirectUnauthorizedTo,
+  redirectLoggedInTo,
+} from '@angular/fire/auth-guard';
+import { OrganizerGuard } from '../core/organizer.guard';
 
 const routes: Routes = [
   {
@@ -37,6 +43,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('../favorites/favorites.module').then(
             (m) => m.FavoritesPageModule
+          ),
+      },
+      {
+        path: 'my-events',
+        loadChildren: () =>
+          import('../my-events/my-events.module').then(
+            (m) => m.MyEventsPageModule
           ),
       },
       {
