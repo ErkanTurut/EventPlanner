@@ -1,10 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>favorites</ion-title>
+    <ion-title>My events</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button [routerLink]="['./create-event']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>

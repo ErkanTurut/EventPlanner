@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>create-event</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Title</ion-label>
+      <ion-input
+        [(ngModel)]="event.title"
+        [clearInput]="true"
+        required
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Description</ion-label>
+      <ion-input
+        [(ngModel)]="event.description"
+        [clearInput]="true"
+        required
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Location</ion-label>
+      <ion-input
+        [(ngModel)]="event.location"
+        [clearInput]="true"
+        required
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">price</ion-label>
+      <ion-input
+        type="number"
+        [(ngModel)]="event.price"
+        [clearInput]="true"
+        required
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Image URL</ion-label>
+      <ion-input [(ngModel)]="event.imageUrl" required></ion-input>
+    </ion-item>
+    <ion-item>
+      Available From
+      <ion-datetime-button datetime="availableFrom"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime
+            id="availableFrom"
+            [showDefaultButtons]="true"
+          ></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
+    <ion-item>
+      Available To
+      <ion-datetime-button datetime="availableTo"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime
+            id="availableTo"
+            [showDefaultButtons]="true"
+          ></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
+  </ion-list>
+  <ion-button (click)="createEvent()">Create Event</ion-button>
+</ion-content>

@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="isDataAvailable">
+  <ion-button
+    *ngIf="this.user[0].isOrganizer || this.user[0].role.toUpperCase()=='ADMIN'"
+    [routerLink]="['./my-events']"
+  >
+    My Events
+  </ion-button>
+</ion-content>

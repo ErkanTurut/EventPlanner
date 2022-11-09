@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../services/data.service';
-import { Event } from '../services/events.model';
-import { User } from '../services/user.model';
-import { AuthService } from '../services/auth.service';
+import { DataService } from '../../services/data.service';
+import { Event } from '../../services/events.model';
+import { User } from '../../services/user.model';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-my-events',

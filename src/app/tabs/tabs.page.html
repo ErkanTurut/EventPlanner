@@ -1,8 +1,18 @@
 <ion-header> </ion-header>
 
-<ion-content *ngIf="isDataAvailable">
+<ion-content>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="qr-code-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <ion-tabs>
     <ion-tab-bar slot="bottom" translucent="true">
+      <ion-tab-button tab="home">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Home</ion-label>
+      </ion-tab-button>
+
       <ion-tab-button tab="events">
         <ion-icon name="calendar"></ion-icon>
         <ion-label>Events</ion-label>
@@ -13,15 +23,7 @@
         <ion-label>Favorites</ion-label>
       </ion-tab-button>
 
-      <ion-tab-button
-        *ngIf="this.user[0].isOrganizer || this.user[0].role.toUpperCase()=='ADMIN'"
-        tab="my-events"
-      >
-        <ion-icon name="storefront"></ion-icon>
-        <ion-label>My Events</ion-label>
-      </ion-tab-button>
-
-      <ion-tab-button tab="person">
+      <ion-tab-button tab="profile">
         <ion-icon name="person"></ion-icon>
         <ion-label>Profil</ion-label>
       </ion-tab-button>

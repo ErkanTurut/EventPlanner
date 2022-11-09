@@ -49,19 +49,6 @@ const routes: Routes = [
     redirectTo: '/login',
     pathMatch: 'full',
   },
-  {
-    path: 'intro',
-    loadChildren: () =>
-      import('./intro/intro.module').then((m) => m.IntroPageModule),
-  },  {
-    path: 'favorites',
-    loadChildren: () => import('./favorites/favorites.module').then( m => m.FavoritesPageModule)
-  },
-  {
-    path: 'my-events',
-    loadChildren: () => import('./my-events/my-events.module').then( m => m.MyEventsPageModule)
-  },
-
 ];
 
 @NgModule({

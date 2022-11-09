@@ -6,8 +6,8 @@ export interface ConferencesItem {
   title: string;
   description: string;
   speakers: string[];
-  availableFrom: Timestamp;
-  availableTo: Timestamp;
+  availableFrom: Date | Timestamp;
+  availableTo: Date | Timestamp;
   location: string;
   booked: boolean;
   participants: string[];
@@ -24,8 +24,9 @@ export interface Event {
   location: string;
   imageUrl: string;
   price: number;
-  availableFrom: Timestamp;
-  availableTo: Timestamp;
+  availableFrom: Date | Timestamp;
+  availableTo: Date | Timestamp;
   conferences?: ConferencesItem[];
-  updated?: Timestamp;
+  created: Date | Timestamp;
+  updated?: Date | Timestamp;
 }

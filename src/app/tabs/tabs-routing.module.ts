@@ -15,6 +15,11 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
+        path: 'home',
+        loadChildren: () =>
+          import('../home/home.module').then((m) => m.HomePageModule),
+      },
+      {
         path: 'events',
         children: [
           {
@@ -46,12 +51,11 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'my-events',
+        path: 'profile',
         loadChildren: () =>
-          import('../my-events/my-events.module').then(
-            (m) => m.MyEventsPageModule
-          ),
+          import('../profile/profile.module').then((m) => m.ProfilePageModule),
       },
+
       {
         path: '',
         redirectTo: '/tabs/events',
@@ -66,6 +70,14 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class TabsPageRoutingModule {}
+
+// {
+//   path: 'my-events',
+//   loadChildren: () =>
+//     import('../my-events/my-events.module').then(
+//       (m) => m.MyEventsPageModule
+//     ),
+// },
 
 // {
 //   path: 'home',
