@@ -7,14 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { MyEventsPageRoutingModule } from './my-events-routing.module';
 
 import { MyEventsPage } from './my-events.page';
+import { EditModalComponent } from './edit-modal/edit-modal.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    MyEventsPageRoutingModule
-  ],
-  declarations: [MyEventsPage]
+  imports: [CommonModule, FormsModule, IonicModule, MyEventsPageRoutingModule],
+  declarations: [MyEventsPage, EditModalComponent],
+  entryComponents: [EditModalComponent],
 })
 export class MyEventsPageModule {}

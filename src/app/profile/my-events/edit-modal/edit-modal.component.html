@@ -1,6 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>create-event</ion-title>
+    <ion-title>Créer un événements</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()">Confirm</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -68,5 +75,4 @@
       </ion-modal>
     </ion-item>
   </ion-list>
-  <ion-button (click)="createEvent()">Create Event</ion-button>
 </ion-content>

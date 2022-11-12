@@ -1,12 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>My events</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button
+        text="Profil"
+        icon="arrow-back-outline"
+        defaultHref="tabs"
+      >
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Mes événements</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-fab slot="fixed" horizontal="end" vertical="bottom">
-    <ion-fab-button [routerLink]="['./create-event']">
+    <ion-fab-button (click)="openEditModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -15,7 +23,10 @@
   </ion-refresher>
   <p *ngIf="events.length <= 0">Pas d'événéments favoris.</p>
   <ion-list *ngIf="events.length > 0">
-    <ion-item *ngFor="let event of events" (click)="nav(event.id)">
+    <ion-item
+      *ngFor="let event of events"
+      [routerLink]="['./event/', event.id] "
+    >
       <ion-thumbnail slot="start">
         <ion-img alt="Silhouette of mountains" [src]="event.imageUrl">
         </ion-img>

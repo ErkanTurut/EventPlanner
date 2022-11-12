@@ -12,8 +12,6 @@ import {
   FacebookAuthProvider,
 } from '@angular/fire/auth';
 import { User } from './user.model';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',

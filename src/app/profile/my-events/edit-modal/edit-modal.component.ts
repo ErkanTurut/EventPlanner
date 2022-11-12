@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Event, ConferencesItem } from 'src/app/services/events.model';
 import { DataService } from 'src/app/services/data.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from 'src/app/services/user.model';
-
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 @Component({
-  selector: 'app-create-event',
-  templateUrl: './create-event.page.html',
-  styleUrls: ['./create-event.page.scss'],
+  selector: 'app-edit-modal',
+  templateUrl: './edit-modal.component.html',
+  styleUrls: ['./edit-modal.component.scss'],
 })
-export class CreateEventPage implements OnInit {
-  event: Event = {
+export class EditModalComponent implements OnInit {
+  event;
+  defaultEvent: Event = {
     title: 'My Event',
     description: 'My Event Description',
     location: 'My Event Location',
@@ -26,13 +26,15 @@ export class CreateEventPage implements OnInit {
   };
 
   constructor(
-    private router: Router,
-    private alertCtrl: AlertController,
-    private dataService: DataService,
-    private authService: AuthService
+    private modalCtrl: ModalController,
+    private alertCtrl: AlertController
   ) {}
 
   ngOnInit() {
+    this.event = {
+      ...this.defaultEvent,
+      ...this.event,
+    };
     console.log(this.event);
   }
 
@@ -44,18 +46,11 @@ export class CreateEventPage implements OnInit {
     await alert.present();
   }
 
-  createEvent() {
-    console.log(this.event);
-    this.event.organizer.push(this.authService.currentUser.uid);
-    this.event.created = new Date();
-    this.event.updated = new Date();
-    this.dataService.addEvent(this.event).then(
-      () => {
-        this.router.navigateByUrl('tabs/profile/my-events');
-      },
-      (err) => {
-        this.showAlert(err);
-      }
-    );
+  cancel() {
+    return this.modalCtrl.dismiss(null, 'cancel');
+  }
+
+  confirm() {
+    this.modalCtrl.dismiss(this.event, 'confirm');
   }
 }

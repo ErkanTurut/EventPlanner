@@ -5,6 +5,7 @@ import { Event } from 'src/app/services/events.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/services/user.model';
+
 @Component({
   selector: 'app-event-detail',
   templateUrl: './event-detail.page.html',
