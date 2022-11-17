@@ -58,7 +58,7 @@ const routes: Routes = [
 
       {
         path: '',
-        redirectTo: '/tabs/events',
+        redirectTo: '/tabs/home',
         pathMatch: 'full',
       },
     ],

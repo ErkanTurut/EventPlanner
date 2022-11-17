@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content *ngIf="isDataAvailable">
+  <ion-list> </ion-list>
   <ion-button
     *ngIf="this.user[0].isOrganizer || this.user[0].role.toUpperCase()=='ADMIN'"
     [routerLink]="['./my-events']"
