@@ -144,7 +144,7 @@ export class DataService {
       .pipe(
         map((actions) => {
           const data = actions as ConferencesItem;
-          const id = eventId;
+          const id = conferenceId;
           return { id, ...data };
         })
       );
