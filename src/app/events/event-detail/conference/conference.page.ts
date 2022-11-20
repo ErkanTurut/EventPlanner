@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { DataService } from 'src/app/services/data.service';
 import { Event, ConferencesItem } from 'src/app/services/events.model';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-conference',
   templateUrl: './conference.page.html',
@@ -15,7 +16,8 @@ export class ConferencePage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private dataService: DataService
+    private dataService: DataService,
+    private authService: AuthService
   ) {}
 
   async ngOnInit() {
@@ -39,10 +41,41 @@ export class ConferencePage implements OnInit {
       });
     });
   }
+
+  // calculate attendance level at this conference
+  getAttendanceLevel() {
+    if (this.loadedConference) {
+      const participants = this.loadedConference.participants.length;
+      const capacity = this.loadedConference.capacity;
+      const attendanceLevel = participants / capacity;
+      return attendanceLevel;
+    }
+  }
+
+  getAttendanceColor() {
+    const attendanceLevel = this.getAttendanceLevel();
+    if (attendanceLevel < 0.5) {
+      return 'success';
+    } else if (attendanceLevel < 0.8) {
+      return 'warning';
+    } else {
+      return 'danger';
+    }
+  }
+
+  isParticipants() {
+    if (!this.loadedEvent) return false;
+    return this.loadedConference.participants.includes(
+      this.authService.currentUser.uid
+    );
+  }
+
   setBookedConference() {
-    // this.eventsService.setBookedConference(
-    //   this.loadedEvent.id,
-    //   this.loadedConferences.id
-    // );
+    this.dataService.bookConference(
+      this.loadedEvent.id,
+      this.loadedConference.id,
+      this.authService.currentUser.uid,
+      this.loadedConference
+    );
   }
 }
