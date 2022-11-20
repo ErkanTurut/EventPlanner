@@ -99,6 +99,11 @@
       *ngIf="selectedSegment == 'conf'"
       class="ion-justify-content-center"
     >
+      <ion-col class="ion-align-self-center ion-text-center">
+        <ion-button class="add-conf" fill="outline">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+      </ion-col>
       <ion-col>
         <ion-list>
           <ion-item *ngFor="let conf of loadedEvent.conferences ">

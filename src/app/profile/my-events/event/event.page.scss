@@ -81,3 +81,15 @@ ion-segment-button.ios {
   --color: var(--ion-color-primary);
   --color-checked: #fff;
 }
+
+ion-button.add-conf {
+  --background-hover: var(--ion-color-medium-tint);
+  --background-activated: var(--ion-color-medium);
+  --background-focused: var(--ion-color-medium);
+
+  --color: var(--ion-color-medium-shade);
+
+  --border-style: dashed;
+  --border-color: var(--ion-color-medium-shade);
+  --border-width: 2px;
+}

@@ -1,15 +1,113 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-header *ngIf="isDataAvailable"> </ion-header>
 
 <ion-content *ngIf="isDataAvailable">
-  <ion-list> </ion-list>
-  <ion-button
-    *ngIf="this.user[0].isOrganizer || this.user[0].role.toUpperCase()=='ADMIN'"
-    [routerLink]="['./my-events']"
-  >
-    My Events
-  </ion-button>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-align-self-center ion-text-center">
+        <ion-avatar>
+          <div style="width: 135px; height: 100px; position: absolute">
+            <ion-fab vertical="bottom" horizontal="end" [edge]="true">
+              <ion-fab-button size="small">
+                <ion-icon name="pencil"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>
+          </div>
+          <img
+            alt="Silhouette of a person's head"
+            [src]="user[0].photoURL ? user[0].photoURL : 'https://ionicframework.com/docs/img/demos/avatar.svg' "
+          />
+        </ion-avatar>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-start">
+      <ion-col class="ion-align-self-center ion-no-margin">
+        <ion-item lines="none">
+          <ion-label position="stacked">First Name</ion-label>
+          <ion-input
+            class="custom"
+            type="text"
+            [(ngModel)]="user[0].firstName"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-label position="stacked">Last Name</ion-label>
+          <ion-input
+            class="custom"
+            type="text"
+            [(ngModel)]="user[0].lastName"
+            readonly="true"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input
+            class="custom"
+            type="text"
+            [(ngModel)]="user[0].email"
+            readonly="true"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-label position="stacked">Phone</ion-label>
+          <ion-input
+            class="custom"
+            type="text"
+            [(ngModel)]="user[0].phone"
+            readonly="true"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-margin-top">
+      <ion-col>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="settings-outline"></ion-icon>
+          Paramètres
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="mail-outline"></ion-icon>
+          Contactez-nous
+        </ion-item>
+        <ion-item
+          lines="none"
+          *ngIf="this.user[0].isOrganizer || this.user[0].role.toUpperCase()=='ADMIN'"
+          [routerLink]="['./my-events']"
+        >
+          <ion-icon slot="start" name="cube-outline"></ion-icon>
+          Mes events
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="log-out-outline"></ion-icon>
+          Déconnexion
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row
+      *ngIf="!this.user[0].isOrganizer || this.user[0].role.toUpperCase()=='ADMIN' "
+    >
+      <ion-col>
+        <h3>Comment devenir organisateur ?</h3>
+        <p>
+          Il n'y a rien de plus simple, cliquez sur le bouton et remplissez vos
+          informations !
+        </p>
+        <ion-button color="primary" expand="block">
+          <ion-icon style="padding-left: 4px" slot="end" name="send"></ion-icon>
+          Devenir organisateur
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

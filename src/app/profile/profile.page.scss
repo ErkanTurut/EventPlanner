@@ -1,0 +1,13 @@
+ion-avatar {
+  margin: auto;
+  --size: 20px;
+  height: 112px;
+  width: 112px;
+}
+
+ion-input.custom {
+  background-color: rgba($color: #9d9fa6, $alpha: 0.12);
+  border-radius: 12px;
+
+  --padding-start: 10px;
+}
