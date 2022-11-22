@@ -1,4 +1,12 @@
-<ion-header *ngIf="isDataAvailable"> </ion-header>
+<ion-header *ngIf="isDataAvailable">
+  <ion-toolbar class="ion-text-center">
+    <ion-title>profil</ion-title>
+
+    <ion-button fill="none" slot="end">
+      <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content *ngIf="isDataAvailable">
   <ion-grid>
@@ -6,11 +14,11 @@
       <ion-col class="ion-align-self-center ion-text-center">
         <ion-avatar>
           <div style="width: 135px; height: 100px; position: absolute">
-            <ion-fab vertical="bottom" horizontal="end" [edge]="true">
+            <!-- <ion-fab vertical="bottom" horizontal="end" [edge]="true">
               <ion-fab-button size="small">
                 <ion-icon name="pencil"></ion-icon>
               </ion-fab-button>
-            </ion-fab>
+            </ion-fab> -->
           </div>
           <img
             alt="Silhouette of a person's head"
@@ -94,19 +102,29 @@
         </ion-item>
       </ion-col>
     </ion-row>
+
     <ion-row
       *ngIf="!this.user[0].isOrganizer || this.user[0].role.toUpperCase()=='ADMIN' "
     >
       <ion-col>
-        <h3>Comment devenir organisateur ?</h3>
-        <p>
-          Il n'y a rien de plus simple, cliquez sur le bouton et remplissez vos
-          informations !
-        </p>
-        <ion-button color="primary" expand="block">
-          <ion-icon style="padding-left: 4px" slot="end" name="send"></ion-icon>
-          Devenir organisateur
-        </ion-button>
+        <ion-card color="success">
+          <ion-card-header>
+            <ion-card-title>Comment devenir organisateur ? </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Il n'y a rien de plus simple, cliquez sur le bouton et remplissez
+            vos informations !
+
+            <ion-button color="light" expand="block" style="margin-top: 10px">
+              <ion-icon
+                style="padding-left: 4px"
+                slot="end"
+                name="send"
+              ></ion-icon>
+              Devenir organisateur
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -5,7 +5,7 @@ import { User } from '../../services/user.model';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { EditModalComponent } from './edit-modal/edit-modal.component';
+import { EditModalComponent } from './event-modal/edit-modal.component';
 import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-my-events',

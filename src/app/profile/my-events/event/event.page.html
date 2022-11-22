@@ -100,11 +100,11 @@
       class="ion-justify-content-center"
     >
       <ion-col class="ion-align-self-center ion-text-center">
-        <ion-button class="add-conf" fill="outline">
+        <ion-button class="add-conf" fill="outline" (click)="openConfModal()">
           <ion-icon slot="icon-only" name="add"></ion-icon>
         </ion-button>
       </ion-col>
-      <ion-col>
+      <ion-col *ngIf="loadedEvent.conferences.length > 0">
         <ion-list>
           <ion-item *ngFor="let conf of loadedEvent.conferences ">
             <ion-label>

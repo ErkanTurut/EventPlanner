@@ -16,15 +16,16 @@
     <ion-item>
       <ion-label position="stacked">Title</ion-label>
       <ion-input
-        [(ngModel)]="event.title"
+        [(ngModel)]="conf.title"
         [clearInput]="true"
+        ngControl="title"
         required
       ></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Description</ion-label>
       <ion-input
-        [(ngModel)]="event.description"
+        [(ngModel)]="conf.description"
         [clearInput]="true"
         required
       ></ion-input>
@@ -32,7 +33,7 @@
     <ion-item>
       <ion-label position="stacked">Location</ion-label>
       <ion-input
-        [(ngModel)]="event.location"
+        [(ngModel)]="conf.location"
         [clearInput]="true"
         required
       ></ion-input>
@@ -41,13 +42,10 @@
       <ion-label position="stacked">price</ion-label>
       <ion-input
         type="number"
-        [(ngModel)]="event.price"
+        [(ngModel)]="conf.price"
         [clearInput]="true"
         required
       ></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-button (click)="uploadFile()">Select Image</ion-button>
     </ion-item>
     <ion-item>
       Available From

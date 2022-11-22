@@ -9,6 +9,8 @@ import {
   Photo,
 } from '@capacitor/camera';
 import { StorageService } from 'src/app/services/storage.service';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { cpuUsage } from 'process';
 @Component({
   selector: 'app-edit-modal',
   templateUrl: './edit-modal.component.html',
@@ -16,23 +18,26 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class EditModalComponent implements OnInit {
   event;
+  newImageUrl;
   defaultEvent: Event = {
-    title: 'My Event',
-    description: 'My Event Description',
-    location: 'My Event Location',
+    title: '',
+    description: '',
+    location: '',
     price: 0,
-    imageUrl:
-      'https://images.unsplash.com/photo-1561490497-43bc900ac2d8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+    imageUrl: '',
     availableFrom: new Date(),
     availableTo: new Date(),
     organizer: [],
     created: new Date(),
   };
 
+  eventForm: FormGroup;
+
   constructor(
     private modalCtrl: ModalController,
     private alertCtrl: AlertController,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -40,10 +45,30 @@ export class EditModalComponent implements OnInit {
       ...this.defaultEvent,
       ...this.event,
     };
+
+    this.eventForm = this.formBuilder.group({
+      title: [this.event.title, [Validators.required]],
+      description: [this.event.description, [Validators.required]],
+      location: [this.event.location, [Validators.required]],
+      price: [this.event.price, [Validators.required, Validators.min(0)]],
+      // availableFrom: [this.event.availableFrom, [Validators.required]],
+      // availableTo: [this.event.availableTo, [Validators.required]],
+      imageUrl: [this.event.imageUrl, [Validators.required]],
+    });
+
+    console.log(this.event.availableTo);
   }
   imageName() {
     const newTime = Math.floor(Date.now() / 1000);
     return Math.floor(Math.random() * 20) + newTime;
+  }
+
+  availableFromChanged(event: any) {
+    this.event.availableFrom = new Date(event.detail.value);
+  }
+
+  availableToChanged(event: any) {
+    this.event.availableTo = new Date(event.detail.value);
   }
 
   async showAlert(err: string) {
@@ -62,8 +87,7 @@ export class EditModalComponent implements OnInit {
       source: CameraSource.Camera,
     }).then(
       async (photo) => {
-        this.event.imageUrl = await fetch(photo.webPath);
-        console.log(this.event.imageUrl);
+        this.newImageUrl = await fetch(photo.webPath);
       },
       (err) => {
         this.showAlert(err);
@@ -76,11 +100,20 @@ export class EditModalComponent implements OnInit {
   }
 
   async confirm() {
-    const blob = await this.event.imageUrl.blob();
-    const filePath = `events/thumbnails/${this.imageName()}`;
-    const url = await this.storageService.uploadImage(filePath, blob);
-    console.log(url);
-    this.event.imageUrl = url;
+    if (this.newImageUrl) {
+      const blob = await this.newImageUrl.blob();
+      const filePath = `events/thumbnails/${this.imageName()}`;
+      const url = await this.storageService.uploadImage(filePath, blob);
+      this.eventForm.value.imageUrl = url;
+    }
+
+    this.event = {
+      ...this.event,
+      ...this.eventForm.value,
+    };
+
+    console.log(this.event);
+
     this.modalCtrl.dismiss(this.event, 'confirm');
   }
 }

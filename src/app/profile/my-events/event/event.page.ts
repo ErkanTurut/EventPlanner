@@ -6,7 +6,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ModalController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { User } from 'src/app/services/user.model';
-import { EditModalComponent } from '../edit-modal/edit-modal.component';
+import { EditModalComponent } from '../event-modal/edit-modal.component';
+import { ConfModalComponent } from '../conf-modal/conf-modal.component';
 
 @Component({
   selector: 'app-event',
@@ -64,6 +65,19 @@ export class EventPage implements OnInit {
 
   segmentChanged(event: any) {
     this.selectedSegment = event.detail.value;
+  }
+
+  openConfModal() {
+    this.modalCtrl
+      .create({
+        component: ConfModalComponent,
+        componentProps: {
+          event: this.loadedEvent,
+        },
+      })
+      .then((modalEl) => {
+        modalEl.present();
+      });
   }
 
   openEditModal() {

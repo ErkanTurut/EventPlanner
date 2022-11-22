@@ -11,7 +11,6 @@ export interface ConferencesItem {
   location: string;
   participants: string[];
   price: number;
-  vip: boolean;
   capacity: number;
   documents?: string[];
 }
