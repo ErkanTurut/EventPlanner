@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -17,6 +18,7 @@ import { ConfModalComponent } from './conf-modal/conf-modal.component';
     ReactiveFormsModule,
     IonicModule,
     MyEventsPageRoutingModule,
+    Ng2SearchPipeModule,
   ],
   declarations: [MyEventsPage, EditModalComponent, ConfModalComponent],
   entryComponents: [EditModalComponent, ConfModalComponent],

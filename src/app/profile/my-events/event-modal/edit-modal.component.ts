@@ -10,14 +10,14 @@ import {
 } from '@capacitor/camera';
 import { StorageService } from 'src/app/services/storage.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { cpuUsage } from 'process';
 @Component({
   selector: 'app-edit-modal',
   templateUrl: './edit-modal.component.html',
   styleUrls: ['./edit-modal.component.scss'],
 })
 export class EditModalComponent implements OnInit {
-  event;
+  event: Event;
+  eventForm: FormGroup;
   newImageUrl;
   defaultEvent: Event = {
     title: '',
@@ -29,9 +29,8 @@ export class EditModalComponent implements OnInit {
     availableTo: new Date(),
     organizer: [],
     created: new Date(),
+    updated: new Date(),
   };
-
-  eventForm: FormGroup;
 
   constructor(
     private modalCtrl: ModalController,
@@ -46,6 +45,8 @@ export class EditModalComponent implements OnInit {
       ...this.event,
     };
 
+    console.log(this.event);
+
     this.eventForm = this.formBuilder.group({
       title: [this.event.title, [Validators.required]],
       description: [this.event.description, [Validators.required]],
@@ -55,8 +56,6 @@ export class EditModalComponent implements OnInit {
       // availableTo: [this.event.availableTo, [Validators.required]],
       imageUrl: [this.event.imageUrl, [Validators.required]],
     });
-
-    console.log(this.event.availableTo);
   }
   imageName() {
     const newTime = Math.floor(Date.now() / 1000);
@@ -107,7 +106,7 @@ export class EditModalComponent implements OnInit {
       this.eventForm.value.imageUrl = url;
     }
 
-    this.event = {
+    this.event = await {
       ...this.event,
       ...this.eventForm.value,
     };

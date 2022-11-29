@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { DataService } from 'src/app/services/data.service';
-import { Event, ConferencesItem } from 'src/app/services/events.model';
+import {
+  Event,
+  ConferencesItem,
+  Participant,
+} from 'src/app/services/events.model';
 import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-conference',
@@ -13,7 +17,7 @@ export class ConferencePage implements OnInit {
   loadedConference: ConferencesItem;
   loadedEvent: Event;
   isDataAvailable: boolean = false;
-
+  loadedParticipant: Participant;
   constructor(
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
@@ -36,7 +40,14 @@ export class ConferencePage implements OnInit {
           .getConference(eventId, conferenceId)
           .subscribe(async (res) => {
             this.loadedConference = await res;
-            this.isDataAvailable = true;
+            this.dataService
+              .getParticipants(eventId, conferenceId)
+              .subscribe(async (res) => {
+                this.loadedParticipant = await res.find(
+                  (p) => p.uid === this.authService.currentUser.uid
+                );
+                this.isDataAvailable = true;
+              });
           });
       });
     });
@@ -75,7 +86,8 @@ export class ConferencePage implements OnInit {
       this.loadedEvent.id,
       this.loadedConference.id,
       this.authService.currentUser.uid,
-      this.loadedConference
+      this.loadedConference,
+      this.loadedParticipant
     );
   }
 }

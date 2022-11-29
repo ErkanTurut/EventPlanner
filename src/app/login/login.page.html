@@ -45,7 +45,9 @@
                 >Password needs to be 6 characters</ion-note
               >
             </ion-item>
-            <p class="ion-text-end">Forgot Password?</p>
+            <p class="ion-text-end" [routerLink]="['./reset-pswrd']">
+              Forgot Password?
+            </p>
             <div class="buttons-container">
               <ion-button
                 type="submit"

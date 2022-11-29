@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        text="login"
+        icon="arrow-back-outline"
+        defaultHref="login"
+      >
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Reset Password</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form (ngSubmit)="resetPassword()" [formGroup]="credentials">
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input
+              type="email"
+              formControlName="email"
+              required
+            ></ion-input>
+            <ion-note
+              slot="error"
+              *ngIf="(email.dirty || email.touched) && email.errors"
+              >Email is invalid</ion-note
+            >
+          </ion-item>
+          <ion-button
+            type="submit"
+            expand="block"
+            [disabled]="!credentials.valid"
+          >
+            Reset Password
+          </ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

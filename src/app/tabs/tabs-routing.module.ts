@@ -8,7 +8,7 @@ import {
   redirectLoggedInTo,
 } from '@angular/fire/auth-guard';
 import { OrganizerGuard } from '../core/organizer.guard';
-
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
 const routes: Routes = [
   {
     path: '',

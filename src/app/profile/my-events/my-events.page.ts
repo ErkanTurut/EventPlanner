@@ -15,7 +15,7 @@ import { AlertController } from '@ionic/angular';
 export class MyEventsPage implements OnInit {
   events: Event[] = [];
   user: User;
-
+  searchTerm: string = '';
   constructor(
     private authService: AuthService,
     private dataService: DataService,

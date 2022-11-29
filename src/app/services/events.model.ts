@@ -1,5 +1,13 @@
 import { Timestamp } from 'firebase/firestore';
 
+export interface Participant {
+  id?: string;
+  uid: string;
+  status: boolean;
+  created: Date | Timestamp;
+  updated: Date | Timestamp;
+}
+
 export interface ConferencesItem {
   id?: string;
   availablity: boolean;
@@ -13,6 +21,8 @@ export interface ConferencesItem {
   price: number;
   capacity: number;
   documents?: string[];
+  created: Date | Timestamp;
+  updated: Date | Timestamp;
 }
 
 export interface Event {
@@ -27,5 +37,5 @@ export interface Event {
   availableTo: Date | Timestamp;
   conferences?: ConferencesItem[];
   created: Date | Timestamp;
-  updated?: Date | Timestamp;
+  updated: Date | Timestamp;
 }

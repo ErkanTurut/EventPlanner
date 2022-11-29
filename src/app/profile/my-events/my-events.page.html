@@ -21,10 +21,26 @@
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  <ion-row class="ion-justify-content-center">
+    <ion-col class="ion-align-self-center ion-no-padding" size="10">
+      <ion-searchbar
+        expand="block"
+        animated="true"
+        placeholder="Chercher une conférence"
+        [(ngModel)]="searchTerm"
+      >
+      </ion-searchbar>
+    </ion-col>
+    <ion-col class="ion-align-self-center ion-no-padding" size="2">
+      <ion-button size="small" fill="clear" color="primary">
+        <ion-icon name="funnel-outline" size="large"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
   <p *ngIf="events.length <= 0">Pas d'événéments favoris.</p>
   <ion-list *ngIf="events.length > 0">
     <ion-item
-      *ngFor="let event of events"
+      *ngFor="let event of events | filter: searchTerm"
       [routerLink]="['./event/', event.id] "
     >
       <ion-thumbnail slot="start">

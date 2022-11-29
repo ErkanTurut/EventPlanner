@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: LoginPage
+  },
+  {
+    path: 'reset-pswrd',
+    loadChildren: () => import('./reset-pswrd/reset-pswrd.module').then( m => m.ResetPswrdPageModule)
   }
 ];
 
