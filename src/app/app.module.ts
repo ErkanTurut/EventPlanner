@@ -17,6 +17,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -30,8 +32,12 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     provideStorage(() => getStorage()),
     AngularFirestoreModule,
     AngularFireStorageModule,
+    NgxQRCodeModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    BarcodeScanner,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

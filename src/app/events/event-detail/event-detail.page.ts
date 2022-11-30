@@ -52,7 +52,6 @@ export class EventDetailPage implements OnInit {
                     x.push(await res);
                   });
                 this.loadedParticipants = x;
-                console.log(this.loadedParticipants);
               });
               this.isDataAvailable = true;
             });
@@ -62,9 +61,6 @@ export class EventDetailPage implements OnInit {
   }
 
   setBookedConference(conferenceId: string) {
-    console.log(
-      this.loadedParticipants.find((p) => p.id === conferenceId).participant[0]
-    );
     this.dataService.bookConference(
       this.loadedEvent.id,
       conferenceId,

@@ -17,7 +17,7 @@ export class ConferencePage implements OnInit {
   loadedConference: ConferencesItem;
   loadedEvent: Event;
   isDataAvailable: boolean = false;
-  loadedParticipant: Participant;
+  loadedParticipant: any[] = [];
   constructor(
     private activatedRoute: ActivatedRoute,
     private dataService: DataService,
@@ -40,12 +40,16 @@ export class ConferencePage implements OnInit {
           .getConference(eventId, conferenceId)
           .subscribe(async (res) => {
             this.loadedConference = await res;
+            let x = [];
             this.dataService
-              .getParticipants(eventId, conferenceId)
+              .getParticipantByUid(
+                eventId,
+                conferenceId,
+                this.authService.currentUser.uid
+              )
               .subscribe(async (res) => {
-                this.loadedParticipant = await res.find(
-                  (p) => p.uid === this.authService.currentUser.uid
-                );
+                x.push(res);
+                this.loadedParticipant = x;
                 this.isDataAvailable = true;
               });
           });
@@ -87,7 +91,8 @@ export class ConferencePage implements OnInit {
       this.loadedConference.id,
       this.authService.currentUser.uid,
       this.loadedConference,
-      this.loadedParticipant
+      this.loadedParticipant.find((p) => p.id === this.loadedConference.id)
+        .participant[0]
     );
   }
 }

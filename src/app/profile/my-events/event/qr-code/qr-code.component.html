@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ this.settings.title }} </ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="close()">Fermer</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-card>
+          <ion-card-content>
+            <ion-card-title>{{ this.settings.subtitle }}</ion-card-title>
+            <div class="qr-code">
+              <ngx-qrcode [value]="currentUrl" [scale]="8"></ngx-qrcode>
+            </div>
+          </ion-card-content>
+        </ion-card>
+        <ion-text>
+          {{ this.settings.description }}
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

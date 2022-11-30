@@ -1,14 +1,23 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
-import { Event, ConferencesItem } from 'src/app/services/events.model';
 import { AuthService } from 'src/app/services/auth.service';
+import {
+  Event,
+  ConferencesItem,
+  Participant,
+} from 'src/app/services/events.model';
+import { User } from 'src/app/services/user.model';
+
 import { ModalController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
-import { User } from 'src/app/services/user.model';
+
+import { QrCodeComponent } from './qr-code/qr-code.component';
 import { EditModalComponent } from '../event-modal/edit-modal.component';
-import { ConfModalComponent } from '../conf-modal/conf-modal.component';
-import { Chart } from 'chart.js';
+import { ConfModalComponent } from './conf-modal/conf-modal.component';
+
+import Chart from 'chart.js/auto';
+import { timeInterval, getDates } from 'src/app/script/utils';
 @Component({
   selector: 'app-event',
   templateUrl: './event.page.html',
@@ -21,14 +30,17 @@ export class EventPage implements OnInit {
 
   barChart: any;
   doughnutChart: any;
-  lineChart: any;
+  participantsLineChart: any;
 
   loadedEvent: Event;
   loadedConf: ConferencesItem;
+  loadedParticipants: any[] = [];
   isDataAvailable: boolean = false;
   user: User;
   selectedSegment = 'event';
   searchTerm: string = '';
+
+  isQrCodeModalOpen: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -59,11 +71,57 @@ export class EventPage implements OnInit {
           this.loadedEvent.conferences = await res.sort((a, b) => {
             return a.availableFrom - b.availableFrom;
           });
+          let x = [];
+          this.loadedEvent.conferences.forEach((conf) => {
+            this.dataService
+              .getParticipants(eventId, conf.id)
+              .subscribe(async (res) => {
+                x.push(await res);
+              });
+            this.loadedParticipants = x;
+          });
+
           this.isDataAvailable = true;
         });
       });
     });
   }
+
+  // ionViewWillEnter() {
+  //   setTimeout(() => {
+  //     this.participantsChart();
+  //   }, 1000);
+  // }
+
+  // async participantsChart() {
+  //   let allDates = [];
+  //   this.loadedParticipants.forEach((participants) => {
+  //     participants.participant.forEach((participant) => {
+  //       allDates.push(participant.created.toDate());
+  //       allDates.sort((a, b) => {
+  //         return a - b;
+  //       });
+  //     });
+  //   });
+  //   const x = await getDates(allDates[0], allDates[allDates.length - 1]);
+  //   this.participantsLineChart = new Chart(this.lineCanvas.nativeElement, {
+  //     type: 'line',
+  //     data: {
+  //       labels: x,
+  //       datasets: [
+  //         {
+  //           label: 'Participants',
+  //           data: allDates.forEach((date) => {
+  //             return date.getHours();
+  //           }),
+  //           fill: false,
+  //           borderColor: 'rgb(75, 192, 192)',
+  //           tension: 0.1,
+  //         },
+  //       ],
+  //     },
+  //   });
+  // }
 
   async showAlert(err: string) {
     const alert = await this.alertCtrl.create({
@@ -163,8 +221,9 @@ export class EventPage implements OnInit {
       .then(async (modal) => {
         modal.present();
         const { data, role } = await modal.onDidDismiss();
-        delete data.conferences;
+
         if (role === 'confirm') {
+          if (data.conferences) delete data.conferences;
           data.updated = new Date();
           this.dataService.updateEvent(this.loadedEvent.id, data).then(
             () => {
@@ -175,6 +234,31 @@ export class EventPage implements OnInit {
             }
           );
         }
+      });
+  }
+
+  openQrCodeModal(type: string) {
+    if (this.isQrCodeModalOpen) return;
+    console.log(this.modalCtrl);
+    this.modalCtrl
+      .create({
+        component: QrCodeComponent,
+        componentProps: {
+          data: this.loadedEvent,
+          type: type,
+        },
+        initialBreakpoint: 0.25,
+        breakpoints: [0, 0.5, 0.75, 1],
+        handleBehavior: 'cycle',
+        backdropBreakpoint: 0.5,
+      })
+      .then(async (modal) => {
+        modal.present();
+
+        this.isQrCodeModalOpen = true;
+        modal.onDidDismiss().then((res) => {
+          this.isQrCodeModalOpen = false;
+        });
       });
   }
 }

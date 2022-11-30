@@ -9,7 +9,6 @@ import { MyEventsPageRoutingModule } from './my-events-routing.module';
 
 import { MyEventsPage } from './my-events.page';
 import { EditModalComponent } from './event-modal/edit-modal.component';
-import { ConfModalComponent } from './conf-modal/conf-modal.component';
 
 @NgModule({
   imports: [
@@ -20,7 +19,7 @@ import { ConfModalComponent } from './conf-modal/conf-modal.component';
     MyEventsPageRoutingModule,
     Ng2SearchPipeModule,
   ],
-  declarations: [MyEventsPage, EditModalComponent, ConfModalComponent],
-  entryComponents: [EditModalComponent, ConfModalComponent],
+  declarations: [MyEventsPage, EditModalComponent],
+  entryComponents: [EditModalComponent],
 })
 export class MyEventsPageModule {}

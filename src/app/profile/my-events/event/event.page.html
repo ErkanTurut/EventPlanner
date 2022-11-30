@@ -64,7 +64,11 @@
             >
               <ion-icon name="pencil"></ion-icon>
             </ion-fab-button>
-            <ion-fab-button color="dark" size="small">
+            <ion-fab-button
+              (click)="openQrCodeModal('invite')"
+              color="dark"
+              size="small"
+            >
               <ion-icon name="qr-code"></ion-icon>
             </ion-fab-button>
           </ion-fab-list>
@@ -243,4 +247,17 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <!-- statistics segment -->
+  <!-- <ion-grid [hidden]="selectedSegment == 'stat' ? false : true ">
+    <ion-row>
+      <ion-col>
+        <canvas
+          #lineCanvas
+          style="position: relative; height: auto; width: auto"
+        >
+        </canvas>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
 </ion-content>
