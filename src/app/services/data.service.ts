@@ -191,13 +191,16 @@ export class DataService {
       .collection('participants')
       .snapshotChanges()
       .pipe(
-        map((actions) =>
-          actions.map((a) => {
-            const data = a.payload.doc.data() as Participant;
-            const id = a.payload.doc.id;
-            return { id, ...data };
-          })
-        )
+        map((actions) => {
+          return {
+            id: conferenceId,
+            participant: actions.map((a) => {
+              const data = a.payload.doc.data() as Participant;
+              const id = a.payload.doc.id;
+              return { id, ...data };
+            }),
+          };
+        })
       );
   }
 
@@ -220,7 +223,6 @@ export class DataService {
   }
 
   getParticipantByUid(eventId: string, conferenceId: string, uid: string) {
-    console.log('uid', uid);
     return this.firestore
       .collection<Event>('events')
       .doc(eventId)
