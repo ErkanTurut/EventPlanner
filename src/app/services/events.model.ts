@@ -6,6 +6,9 @@ export interface Participant {
   status: boolean;
   created: Date | Timestamp;
   updated: Date | Timestamp;
+  checkedIn: boolean;
+  checkedInDate?: Date | Timestamp;
+  checkOutDate?: Date | Timestamp;
 }
 
 export interface ConferencesItem {
@@ -19,6 +22,7 @@ export interface ConferencesItem {
   location: string;
   participants: string[];
   price: number;
+  tags: string[];
   capacity: number;
   documents?: string[];
   created: Date | Timestamp;

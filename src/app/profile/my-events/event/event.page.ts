@@ -16,22 +16,16 @@ import { QrCodeComponent } from './qr-code/qr-code.component';
 import { EditModalComponent } from '../event-modal/edit-modal.component';
 import { ConfModalComponent } from './conf-modal/conf-modal.component';
 
-import Chart from 'chart.js/auto';
-import { timeInterval, getDates } from 'src/app/script/utils';
+import { Router, NavigationExtras } from '@angular/router';
+
+import { StatsModalComponent } from './stats-modal/stats-modal.component';
+
 @Component({
   selector: 'app-event',
   templateUrl: './event.page.html',
   styleUrls: ['./event.page.scss'],
 })
 export class EventPage implements OnInit {
-  @ViewChild('barCanvas') private barCanvas: ElementRef;
-  @ViewChild('doughnutCanvas') private doughnutCanvas: ElementRef;
-  @ViewChild('lineCanvas') private lineCanvas: ElementRef;
-
-  barChart: any;
-  doughnutChart: any;
-  participantsLineChart: any;
-
   loadedEvent: Event;
   loadedConf: ConferencesItem;
   loadedParticipants: any[] = [];
@@ -47,7 +41,8 @@ export class EventPage implements OnInit {
     private dataService: DataService,
     private authService: AuthService,
     private modalCtrl: ModalController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -86,42 +81,6 @@ export class EventPage implements OnInit {
       });
     });
   }
-
-  // ionViewWillEnter() {
-  //   setTimeout(() => {
-  //     this.participantsChart();
-  //   }, 1000);
-  // }
-
-  // async participantsChart() {
-  //   let allDates = [];
-  //   this.loadedParticipants.forEach((participants) => {
-  //     participants.participant.forEach((participant) => {
-  //       allDates.push(participant.created.toDate());
-  //       allDates.sort((a, b) => {
-  //         return a - b;
-  //       });
-  //     });
-  //   });
-  //   const x = await getDates(allDates[0], allDates[allDates.length - 1]);
-  //   this.participantsLineChart = new Chart(this.lineCanvas.nativeElement, {
-  //     type: 'line',
-  //     data: {
-  //       labels: x,
-  //       datasets: [
-  //         {
-  //           label: 'Participants',
-  //           data: allDates.forEach((date) => {
-  //             return date.getHours();
-  //           }),
-  //           fill: false,
-  //           borderColor: 'rgb(75, 192, 192)',
-  //           tension: 0.1,
-  //         },
-  //       ],
-  //     },
-  //   });
-  // }
 
   async showAlert(err: string) {
     const alert = await this.alertCtrl.create({
@@ -260,5 +219,31 @@ export class EventPage implements OnInit {
           this.isQrCodeModalOpen = false;
         });
       });
+  }
+
+  openStatsModal(type: string) {
+    this.modalCtrl
+      .create({
+        component: StatsModalComponent,
+        componentProps: {
+          type: type,
+          event: this.loadedEvent,
+          participants: this.loadedParticipants,
+        },
+      })
+      .then(async (modal) => {
+        modal.present();
+      });
+  }
+
+  confLoyality(conf: ConferencesItem) {
+    const params: NavigationExtras = {
+      queryParams: {
+        eventId: this.loadedEvent.id,
+        confId: conf.id,
+        Uid: this.user[0].uid,
+      },
+    };
+    this.router.navigate(['tabs/loyality'], params);
   }
 }

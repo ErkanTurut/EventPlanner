@@ -13,3 +13,10 @@ export interface User {
   favoriteEvents?: string[];
   isOrganizer: boolean;
 }
+
+export interface Score {
+  docId?: string;
+  eventId: string;
+  userId: string;
+  score: number;
+}

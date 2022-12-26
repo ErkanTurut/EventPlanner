@@ -48,7 +48,11 @@ const routes: Routes = [
     path: '',
     redirectTo: '/login',
     pathMatch: 'full',
+  },  {
+    path: 'loyality',
+    loadChildren: () => import('./loyality/loyality.module').then( m => m.LoyalityPageModule)
   },
+
 ];
 
 @NgModule({
