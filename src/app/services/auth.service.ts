@@ -46,7 +46,7 @@ export class AuthService {
     return signInWithPopup(this.auth, new GoogleAuthProvider());
   }
 
-  //login with facebook provider
+  //login with facebook provider not working
   FacebookAuth() {
     return signInWithPopup(this.auth, new FacebookAuthProvider());
   }
