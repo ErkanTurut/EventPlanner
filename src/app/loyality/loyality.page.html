@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{info.title}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <div class="ion-text-center message">
+          <ion-icon
+            [name]="info.icon.name"
+            [color]="info.icon.color"
+          ></ion-icon>
+          <h3>{{info.description}}</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
