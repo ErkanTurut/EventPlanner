@@ -15,6 +15,7 @@
           <ion-card-content>
             <ion-card-title>{{ this.settings.subtitle }}</ion-card-title>
             <div class="qr-code">
+              <!-- genere qrcode avec module ngx-->
               <ngx-qrcode [value]="currentUrl" [scale]="8"></ngx-qrcode>
             </div>
           </ion-card-content>
