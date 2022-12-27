@@ -44,6 +44,20 @@ export class DataService {
       );
   }
 
+  getUserByEmail(email: string): Promise<any> {
+    return this.firestore
+      .collection<User>('users', (ref) => ref.where('email', '==', email))
+      .get()
+      .toPromise();
+  }
+
+  getUserById(userId: string): Promise<any> {
+    return this.firestore
+      .collection<User>('users', (ref) => ref.where('uid', '==', userId))
+      .get()
+      .toPromise();
+  }
+
   addUser(user: User) {
     return this.firestore.collection<User>('users').add(user);
   }
@@ -282,12 +296,12 @@ export class DataService {
     participant: Participant
   ) {
     if (!participant) {
-      console.log('participant is null');
       this.addParticipant(eventId, conferenceId, {
         uid: userId,
         status: true,
         created: new Date(),
         updated: new Date(),
+        checkedIn: false,
       });
       return this.firestore
         .collection('events')

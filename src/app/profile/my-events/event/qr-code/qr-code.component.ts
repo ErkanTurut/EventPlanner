@@ -21,6 +21,7 @@ export class QrCodeComponent implements OnInit {
   constructor(private modalCtrl: ModalController, private router: Router) {}
 
   ngOnInit() {
+    //genere lien avec eventID pour qrcode//
     this.currentUrl = 'http://localhost:4200/tabs/events/' + this.data.id;
     if (this.type === 'invite') {
       this.settings.title = "Qr Code d'invitation";
