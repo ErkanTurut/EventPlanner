@@ -33,6 +33,7 @@ export class MyEventsPage implements OnInit {
         this.dataService.getEvents().subscribe(async (res) => {
           this.events = await res
             .filter((e) => {
+              console.log(e);
               return e.organizer.includes(this.user[0].uid);
             })
             .sort((a, b) => {

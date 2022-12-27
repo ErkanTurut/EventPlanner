@@ -61,27 +61,6 @@ ion-text.event-detail-description {
   padding: 5px;
 }
 
-ion-segment {
-  --background: rgba(86, 105, 255, 0.12);
-}
-
-ion-segment-button {
-  --indicator-color: var(--ion-color-primary);
-}
-
-/* Material Design styles */
-ion-segment-button.md {
-  --color: #000;
-  --color-checked: var(--ion-color-primary);
-  --indicator-height: 4px;
-}
-
-/* iOS styles */
-ion-segment-button.ios {
-  --color: var(--ion-color-primary);
-  --color-checked: #fff;
-}
-
 ion-button.add-conf {
   --background-hover: var(--ion-color-medium-tint);
   --background-activated: var(--ion-color-medium);

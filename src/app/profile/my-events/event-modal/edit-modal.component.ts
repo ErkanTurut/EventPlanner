@@ -18,7 +18,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 export class EditModalComponent implements OnInit {
   event: Event;
   eventForm: FormGroup;
-  newImageUrl;
+  newImageUrl: any;
   defaultEvent: Event = {
     title: '',
     description: '',

@@ -27,9 +27,9 @@
           <ion-icon name="headset"></ion-icon>
           <ion-label>Conférences</ion-label>
         </ion-segment-button>
-        <ion-segment-button value="stat">
-          <ion-icon name="stats-chart"></ion-icon>
-          <ion-label>Statistiques</ion-label>
+        <ion-segment-button value="stands">
+          <ion-icon name="albums"></ion-icon>
+          <ion-label>Stands</ion-label>
         </ion-segment-button>
       </ion-segment>
     </ion-row>
@@ -70,6 +70,13 @@
               size="small"
             >
               <ion-icon name="qr-code"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button
+              (click)="openStatsModal('event')"
+              color="secondary"
+              size="small"
+            >
+              <ion-icon name="stats-chart"></ion-icon>
             </ion-fab-button>
           </ion-fab-list>
         </ion-fab>
@@ -189,7 +196,11 @@
               >
                 <ion-icon name="pencil"></ion-icon>
               </ion-fab-button>
-              <ion-fab-button color="dark" size="small">
+              <ion-fab-button
+                (click)="confLoyality(conf)"
+                color="dark"
+                size="small"
+              >
                 <ion-icon name="qr-code"></ion-icon>
               </ion-fab-button>
             </ion-fab-list>
@@ -248,16 +259,7 @@
     </ion-row>
   </ion-grid>
 
-  <!-- statistics segment -->
-  <!-- <ion-grid [hidden]="selectedSegment == 'stat' ? false : true ">
-    <ion-row>
-      <ion-col>
-        <canvas
-          #lineCanvas
-          style="position: relative; height: auto; width: auto"
-        >
-        </canvas>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
+  <!-- stands segment -->
+
+  <ion-grid> </ion-grid>
 </ion-content>

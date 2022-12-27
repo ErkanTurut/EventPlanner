@@ -49,6 +49,7 @@ export class ProfilePage implements OnInit {
           text: 'se déconnecter',
           handler: () => {
             this.authService.logout();
+            window.location.reload();
           },
         },
       ],

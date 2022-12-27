@@ -55,6 +55,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('../profile/profile.module').then((m) => m.ProfilePageModule),
       },
+      {
+        path: 'loyality',
+        loadChildren: () =>
+          import('../loyality/loyality.module').then(
+            (m) => m.LoyalityPageModule
+          ),
+      },
 
       {
         path: '',

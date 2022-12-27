@@ -10,6 +10,7 @@ import { EventPageRoutingModule } from './event-routing.module';
 import { ConfModalComponent } from './conf-modal/conf-modal.component';
 import { EventPage } from './event.page';
 import { QrCodeComponent } from './qr-code/qr-code.component';
+import { StatsModalComponent } from './stats-modal/stats-modal.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,7 +21,12 @@ import { QrCodeComponent } from './qr-code/qr-code.component';
     Ng2SearchPipeModule,
     NgxQRCodeModule,
   ],
-  declarations: [EventPage, ConfModalComponent, QrCodeComponent],
-  entryComponents: [ConfModalComponent, QrCodeComponent],
+  declarations: [
+    EventPage,
+    ConfModalComponent,
+    QrCodeComponent,
+    StatsModalComponent,
+  ],
+  entryComponents: [ConfModalComponent, QrCodeComponent, StatsModalComponent],
 })
 export class EventPageModule {}

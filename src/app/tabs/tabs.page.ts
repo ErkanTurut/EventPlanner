@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { AuthService } from '../services/auth.service';
 import { User } from '../services/user.model';
-import { throws } from 'assert';
+import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
+
 @Component({
   selector: 'app-tabs',
   templateUrl: './tabs.page.html',
@@ -13,7 +14,8 @@ export class TabsPage implements OnInit {
   isDataAvailable: boolean = false;
   constructor(
     private dataService: DataService,
-    private authService: AuthService
+    private authService: AuthService,
+    private barcodeScanner: BarcodeScanner
   ) {}
 
   async ngOnInit() {
@@ -33,6 +35,17 @@ export class TabsPage implements OnInit {
         }
         this.user = await res;
         this.isDataAvailable = true;
+      });
+  }
+
+  async scan() {
+    this.barcodeScanner
+      .scan()
+      .then((barcodeData) => {
+        console.log('Barcode data', barcodeData);
+      })
+      .catch((err) => {
+        console.log('Error', err);
       });
   }
 }
