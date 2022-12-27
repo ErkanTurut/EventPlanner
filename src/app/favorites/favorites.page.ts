@@ -21,6 +21,7 @@ export class FavoritesPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    //recupere les favoris
     this.dataService
       .getUser(this.authService.currentUser.uid)
       .subscribe(async (res) => {
