@@ -60,6 +60,7 @@ export class LoyalityPage implements OnInit {
       const confId = paramMap.get('confId');
       const userId = paramMap.get('Uid');
 
+      //si l'utilisateur n'est pas enregistré
       this.dataService
         .getParticipantByUid(eventId, confId, userId)
         .subscribe(async (res) => {
@@ -85,6 +86,7 @@ export class LoyalityPage implements OnInit {
             return this.renavigate(eventId, confId);
           }
 
+          //si la personne n'a pas fait son check-in
           if (!res.participant[0].checkedIn) {
             await this.dataService.updateParticipant(
               eventId,
@@ -108,6 +110,7 @@ export class LoyalityPage implements OnInit {
             return this.renavigate(eventId, confId);
           }
 
+          //si la personne a fait son check-in
           if (res.participant[0].checkedIn) {
             if (!res.participant[0].checkOutDate) {
               await this.dataService.updateParticipant(
@@ -122,7 +125,7 @@ export class LoyalityPage implements OnInit {
               loading.dismiss();
               this.info = {
                 title: 'Registration',
-                description: 'Votre chec-out in a été enregistré !',
+                description: 'Votre check-out in a été enregistré !',
                 icon: {
                   name: 'log-out',
                   color: 'primary',
