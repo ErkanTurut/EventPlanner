@@ -16,9 +16,10 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
-import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
