@@ -1,2 +1,2 @@
 # projet
-test
+Application permettant la gestion des salons professionnels 
