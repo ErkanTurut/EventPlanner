@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        text="Profil"
+        icon="arrow-back-outline"
+        defaultHref="tabs"
+      >
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Mes événements</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button (click)="openEditModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-row class="ion-justify-content-center">
+    <ion-col class="ion-align-self-center ion-no-padding" size="10">
+      <ion-searchbar
+        expand="block"
+        animated="true"
+        placeholder="Chercher une conférence"
+        [(ngModel)]="searchTerm"
+      >
+      </ion-searchbar>
+    </ion-col>
+    <ion-col class="ion-align-self-center ion-no-padding" size="2">
+      <ion-button size="small" fill="clear" color="primary">
+        <ion-icon name="funnel-outline" size="large"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <p *ngIf="events.length <= 0">Vous n'avez pas d'événements.</p>
+  <ion-list *ngIf="events.length > 0">
+    <ion-item
+      *ngFor="let event of events | filter: searchTerm"
+      [routerLink]="['./event/', event.id] "
+    >
+      <ion-thumbnail slot="start">
+        <ion-img alt="Silhouette of mountains" [src]="event.imageUrl">
+        </ion-img>
+      </ion-thumbnail>
+      <ion-label
+        >{{event.title}}
+        <p>{{event.description}}</p>
+        <p>
+          Du {{event.availableFrom.toDate() | date: 'dd/MM/YY' }} au
+          {{event.availableTo.toDate() | date: 'dd/MM/YY' }}
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

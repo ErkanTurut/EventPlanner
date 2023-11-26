@@ -1,0 +1,106 @@
+<ion-header [translucent]="false" *ngIf="isDataAvailable">
+  <ion-toolbar color="primary">
+    <ion-avatar slot="start">
+      <img
+        alt="Silhouette of a person's head"
+        [src]="user[0].photoURL ? user[0].photoURL : 'https://ionicframework.com/docs/img/demos/avatar.svg' "
+      />
+    </ion-avatar>
+
+    <p class="ion-no-margin ion-margin-start">{{getWelcomeMessage()}}</p>
+    <h2 class="ion-no-margin ion-margin-start">
+      {{user[0].displayName || user[0].firstName + " " + user[0].lastName }}
+    </h2>
+  </ion-toolbar>
+  <ion-searchbar
+    animated="true"
+    placeholder="Search event"
+    class="custom"
+    (ionFocus)="onFocus()"
+  ></ion-searchbar>
+</ion-header>
+
+<ion-content *ngIf="isDataAvailable">
+  <h3 style="margin-left: 0.5em">Les événements à venir</h3>
+
+  <swiper [config]="slideOpts">
+    <ng-template *ngFor="let event of events" swiperSlide>
+      <ion-card>
+        <div
+          style="
+            height: 141px;
+            overflow: hidden;
+            box-shadow: inset 0px -24px 31px -17px rgba(0, 0, 0, 0.25);
+          "
+        >
+          <ion-img
+            class="event-banner"
+            alt="Silhouette of mountains"
+            [src]="event.imageUrl"
+          >
+          </ion-img>
+        </div>
+
+        <ion-card-header class="ion-text-left">
+          <ion-card-title> {{event.title}} </ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content class="ion-text-left">
+          <p class="event-description">{{event.description}}</p>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <div>
+              <ion-icon name="location"></ion-icon> {{event.location}} <br />
+              <ion-icon name="calendar"></ion-icon>
+              {{event.availableFrom.toDate() | date: 'dd/MM'}}
+            </div>
+            <ion-button
+              slot="end"
+              class="bookmark-button"
+              fill="clear"
+              (click)="onFavorite(event)"
+            >
+              <ion-icon
+                slot="icon-only"
+                [name]="isFavorite(event) ? 'heart' : 'heart-outline'"
+                class="icon-bookmark"
+              ></ion-icon>
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ng-template>
+  </swiper>
+  <ion-card class="organisateur-annonce" color="tertiary">
+    <img
+      class="img-organisateur"
+      src="/assets/Hidden person-bro.svg"
+      alt="organisateur annonce"
+    />
+
+    <ion-card-header>
+      <ion-card-title>Devenez organisateur</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      Rejoignez notre communauté d'organisateurs et faites la différence !
+    </ion-card-content>
+    <ion-button
+      expand="block"
+      style="--background: #634ae2; padding-left: 1em; padding-right: 1em"
+      >Faire une demande
+      <ion-icon
+        style="position: absolute; right: 0.2em"
+        size="large"
+        slot="end"
+        name="arrow-forward-circle"
+        color="light"
+      ></ion-icon>
+    </ion-button>
+  </ion-card>
+</ion-content>

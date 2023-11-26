@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Formulaire organisateur</ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button [disabled]="!organizerForm.valid" (click)="confirm()"
+        >Confirm</ion-button
+      >
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <form [formGroup]="organizerForm">
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="stacked">Titre</ion-label>
+            <ion-input
+              class="custom"
+              type="text"
+              formControlName="title"
+              readonly="true"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="stacked">Numéro d'entreprise</ion-label>
+            <ion-input
+              class="custom"
+              type="text"
+              formControlName="companyNumber"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="stacked">Nom de l'entreprise</ion-label>
+            <ion-input
+              class="custom"
+              type="text"
+              formControlName="companyName"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="stacked">Adresse de l'entreprise</ion-label>
+            <ion-input
+              class="custom"
+              type="text"
+              formControlName="companyAddress"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="stacked"
+              >Numéro téléphone de l'entreprise</ion-label
+            >
+            <ion-input
+              class="custom"
+              type="text"
+              formControlName="companyPhone"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="stacked">Email de l'entreprise</ion-label>
+            <ion-input
+              class="custom"
+              type="text"
+              formControlName="companyEmail"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="stacked">Site web de l'entreprise</ion-label>
+            <ion-input
+              class="custom"
+              type="text"
+              formControlName="companyWebsite"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="stacked"
+              >description de l'entreprise</ion-label
+            >
+            <ion-input
+              class="custom"
+              type="text"
+              formControlName="companyDescription"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="stacked"
+              >La motivation de votre demande</ion-label
+            >
+            <!-- <ion-input
+              class="custom"
+              type="text"
+              formControlName="motivation"
+            ></ion-input> -->
+            <ion-textarea
+              formControlName="motivation"
+              class="custom"
+            ></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+</ion-content>

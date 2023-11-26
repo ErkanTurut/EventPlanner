@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title></ion-title>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="close()">Fermer</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-card>
+          <ion-card-header> Participants </ion-card-header>
+          <ion-card-content>
+            <canvas
+              #barCanvas
+              style="position: relative; height: 20vh; width: 40vw"
+            ></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-card>
+          <ion-card-header> Affluence </ion-card-header>
+          <ion-card-content>
+            <canvas
+              #lineCanvas
+              style="position: relative; height: 20vh; width: 40vw"
+            ></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-card>
+          <ion-card-content>
+            <canvas
+              #doughnutCanvas
+              style="position: relative; height: 20vh; width: 40vw"
+            ></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

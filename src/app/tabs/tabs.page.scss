@@ -1,0 +1,12 @@
+ion-fab-button {
+  --background: var(--ion-color-light);
+  --background-activated: var(--ion-color-light-tint);
+  --background-hover: var(--ion-color-light-tint);
+  --border-width: 1px;
+  --border-style: solid;
+  --border-color: var(--ion-color-medium-tint);
+  height: 50px;
+  width: 50px;
+  margin-bottom: 10px;
+  --color: var(--ion-color-dark);
+}

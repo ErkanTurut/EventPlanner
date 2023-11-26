@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ba-eventplanner": {
+      "hosting": {
+        "app": [
+          "ba-eventplanner"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ba-eventplanner"
+  }
+}

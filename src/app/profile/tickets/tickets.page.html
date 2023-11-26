@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        text="Profil"
+        icon="arrow-back-outline"
+        defaultHref="tabs"
+      >
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Tickets</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h3>Demande organisateur</h3>
+        <ion-list>
+          <ion-item
+            *ngFor="let organizerRequest of organizerRequests"
+            [routerLink]="['./', organizerRequest.docId] "
+          >
+            <ion-badge
+              [color]="statusColor(organizerRequest.status)"
+              slot="end"
+            >
+              {{organizerRequest.status}}
+            </ion-badge>
+            <ion-label>
+              <h2>{{ organizerRequest.title }}</h2>
+              <p>{{ organizerRequest.createdAt.toDate().toDateString() }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

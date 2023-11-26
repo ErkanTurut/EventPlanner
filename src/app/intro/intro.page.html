@@ -1,0 +1,43 @@
+<ion-header> </ion-header>
+
+<!-- swipper page for introduction to app -->
+<ion-content>
+  <swiper [config]="swiperConfig">
+    <ng-template swiperSlide>
+      <div class="swiper-slide-container">
+        <ion-text color="light">
+          <h1>Bienvenue sur Event Planner</h1>
+          <p>
+            Event Planner est une application qui vous permet d'oganiser vos
+            évenements
+          </p>
+        </ion-text>
+      </div>
+    </ng-template>
+    <ng-template swiperSlide>
+      <div class="swiper-slide-container">
+        <ion-text color="light">
+          <h1>Organisez-vous !</h1>
+          <p>
+            Selectionenr les conférences qui vous interesses, soyez au courrant
+            des nouveautés
+          </p>
+        </ion-text>
+      </div>
+    </ng-template>
+    <ng-template swiperSlide>
+      <div class="swiper-slide-container">
+        <ion-text color="light">
+          <h1>Amusez vous</h1>
+          <p>
+            Gagnez des points pour vos participations et gagnez des cadeaux !
+          </p>
+          <ion-button (click)="start()" fill="outline" color="light"
+            >Commencez maintenant !</ion-button
+          >
+        </ion-text>
+      </div>
+    </ng-template>
+  </swiper>
+  <div class="text-background"></div>
+</ion-content>

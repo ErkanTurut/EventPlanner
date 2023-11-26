@@ -1,0 +1,91 @@
+<ion-header> </ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-align-self-center">
+        <ion-thumbnail class="custom">
+          <ion-img
+            src="https://firebasestorage.googleapis.com/v0/b/ba-eventplanner.appspot.com/o/EventPlanner%2FGroup%2034056.png?alt=media&token=ec5e0c2c-995b-4ee1-b024-7efb0b9bb842"
+            class="custom"
+          ></ion-img>
+        </ion-thumbnail>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-align-self-center">
+        <div>
+          <h3>Sign in</h3>
+          <form (ngSubmit)="login()" [formGroup]="credentials">
+            <ion-item fill="solid" class="ion-margin-bottom" lines="none">
+              <ion-input
+                type="email"
+                placeholder="Email"
+                formControlName="email"
+                style="padding-left: 20px"
+                class="custom"
+              ></ion-input>
+
+              <ion-note
+                slot="error"
+                *ngIf="(email.dirty || email.touched) && email.errors"
+                >Email is invalid</ion-note
+              >
+            </ion-item>
+            <ion-item fill="solid" class="ion-margin-bottom" lines="none">
+              <ion-input
+                type="password"
+                placeholder="Password"
+                formControlName="password"
+                class="custom"
+              ></ion-input>
+              <ion-note
+                slot="error"
+                *ngIf="(password.dirty || password.touched) && password.errors"
+                >Password needs to be 6 characters</ion-note
+              >
+            </ion-item>
+            <p class="ion-text-end" [routerLink]="['./reset-pswrd']">
+              Forgot Password?
+            </p>
+            <div class="buttons-container">
+              <ion-button
+                type="submit"
+                expand="block"
+                [disabled]="!credentials.valid"
+                class="button-login"
+              >
+                Log in
+                <ion-icon slot="end" name="chevron-forward-outline"></ion-icon
+              ></ion-button>
+              <ion-text color="medium">
+                <h3 class="ion-text-center">OR</h3>
+              </ion-text>
+
+              <ion-button
+                type="button"
+                expand="block"
+                color="light"
+                class="button-create"
+                (click)="loginWithGoogle()"
+                >Login with Google</ion-button
+              >
+              <ion-button
+                type="button"
+                expand="block"
+                color="light"
+                class="button-create"
+                >Login with Facebook</ion-button
+              >
+
+              <p>
+                Vous n'avez pas de compte ?
+                <a routerLink="/signup">Créer</a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

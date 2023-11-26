@@ -1,0 +1,144 @@
+<ion-header *ngIf="isDataAvailable" [translucent]="true">
+  <ion-toolbar class="ion-text-center">
+    <ion-title>profil</ion-title>
+
+    <ion-button fill="none" slot="end" (click)="presentActionSheet()">
+      <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="isDataAvailable">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-align-self-center ion-text-center">
+        <ion-avatar>
+          <div style="width: 135px; height: 100px; position: absolute"></div>
+          <img
+            alt="Silhouette of a person's head"
+            [src]="user[0].photoURL ? user[0].photoURL : 'https://ionicframework.com/docs/img/demos/avatar.svg' "
+          />
+        </ion-avatar>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-start">
+      <ion-col class="ion-align-self-center ion-no-margin">
+        <ion-item lines="none">
+          <ion-label position="stacked">First Name</ion-label>
+          <ion-input
+            class="custom"
+            type="text"
+            [(ngModel)]="user[0].firstName"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-label position="stacked">Last Name</ion-label>
+          <ion-input
+            class="custom"
+            type="text"
+            [(ngModel)]="user[0].lastName"
+            readonly="true"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input
+            class="custom"
+            type="text"
+            [(ngModel)]="user[0].email"
+            readonly="true"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none">
+          <ion-label position="stacked">Phone</ion-label>
+          <ion-input
+            class="custom"
+            type="text"
+            [(ngModel)]="user[0].phone"
+            readonly="true"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-margin-top">
+      <ion-col>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="settings-outline"></ion-icon>
+          Paramètres
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="mail-outline"></ion-icon>
+          Contactez-nous
+        </ion-item>
+        <ion-item
+          lines="none"
+          *ngIf="this.user[0].role.toUpperCase()=='ADMIN'"
+          [routerLink]="['./tickets']"
+        >
+          <ion-badge slot="end" color="danger"> {{tickets.length}} </ion-badge>
+          <ion-icon slot="start" name="ticket-outline"></ion-icon>
+          Tickets
+        </ion-item>
+        <ion-item
+          lines="none"
+          *ngIf="this.user[0].isOrganizer || this.user[0].role.toUpperCase()=='ADMIN'"
+          [routerLink]="['./my-events']"
+        >
+          <ion-icon slot="start" name="cube-outline"></ion-icon>
+          Mes events
+        </ion-item>
+        <ion-item lines="none" (click)="logout()">
+          <ion-icon slot="start" name="log-out-outline"></ion-icon>
+          Déconnexion
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row
+      *ngIf="!this.user[0].isOrganizer || this.user[0].role.toUpperCase()=='ADMIN' "
+    >
+      <ion-col>
+        <ion-card class="organisateur-annonce" color="tertiary">
+          <img
+            class="img-organisateur"
+            src="/assets/Hidden person-bro.svg"
+            alt="organisateur annonce"
+          />
+
+          <ion-card-header>
+            <ion-card-title>Devenez organisateur</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            Rejoignez notre communauté d'organisateurs et faites la différence !
+          </ion-card-content>
+          <ion-button
+            expand="block"
+            style="--background: #634ae2; padding-left: 1em; padding-right: 1em"
+            (click)="organizerForm()"
+            >Faire une demande
+            <ion-icon
+              style="position: absolute; right: 0.2em"
+              size="large"
+              slot="end"
+              name="arrow-forward-circle"
+              color="light"
+            ></ion-icon>
+          </ion-button>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

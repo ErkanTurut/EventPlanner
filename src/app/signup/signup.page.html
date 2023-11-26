@@ -1,0 +1,159 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>signup</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <form (ngSubmit)="signup()" [formGroup]="credentials">
+      <ion-row class="ion-justify-content-center">
+        <ion-col class="ion-align-self-center ion-text-center">
+          <ion-avatar>
+            <div style="width: 135px; height: 100px; position: absolute">
+              <ion-fab vertical="bottom" horizontal="end" [edge]="true">
+                <ion-fab-button size="small" (click)="uploadFile()">
+                  <ion-icon name="pencil"></ion-icon>
+                </ion-fab-button>
+              </ion-fab>
+            </div>
+            <img
+              alt="Silhouette of a person's head"
+              [src]="credentials.value.imageUrl? credentials.value.imageUrl : 'https://ionicframework.com/docs/img/demos/avatar.svg'"
+            />
+          </ion-avatar>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="stacked">First Name</ion-label>
+            <ion-input
+              class="custom"
+              type="text"
+              formControlName="firstName"
+              [clearInput]="true"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="stacked">Last Name</ion-label>
+            <ion-input
+              class="custom"
+              type="text"
+              formControlName="lastName"
+              [clearInput]="true"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="stacked">Birthday</ion-label>
+            <ion-datetime-button datetime="datetime"></ion-datetime-button>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime
+                  formControlName="birthDate"
+                  (ionChange)="handleBirthDate($event)"
+                  id="datetime"
+                ></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label position="stacked">Sexe</ion-label>
+            <ion-list>
+              <ion-item>
+                <ion-select
+                  formControlName="sex"
+                  placeholder="Sélectionnez votre sexe"
+                  (ionChange)="handleSex($event)"
+                >
+                  <ion-select-option value="M">Male</ion-select-option>
+                  <ion-select-option value="F">Femelle</ion-select-option>
+                  <ion-select-option value="O">Autre</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none" fill="solid" class="ion-margin-bottom">
+            <ion-label position="stacked">Email</ion-label>
+            <ion-input
+              class="custom"
+              type="email"
+              placeholder="Email"
+              formControlName="email"
+              [clearInput]="true"
+            ></ion-input>
+            <ion-note
+              slot="error"
+              *ngIf="(email.dirty || email.touched) && email.errors"
+              >Email is invalid</ion-note
+            >
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none" fill="solid" class="ion-margin-bottom">
+            <ion-label position="stacked">Password</ion-label>
+            <ion-input
+              class="custom"
+              type="password"
+              placeholder="Password"
+              formControlName="password"
+              [clearInput]="true"
+            ></ion-input>
+            <ion-note
+              slot="error"
+              *ngIf="(password.dirty || password.touched) && password.errors"
+              >Password needs to be 6 characters</ion-note
+            >
+          </ion-item>
+
+          <ion-item lines="none" fill="solid" class="ion-margin-bottom">
+            <ion-label position="stacked">Confirm Password</ion-label>
+            <ion-input
+              class="custom"
+              type="password"
+              placeholder="Password"
+              formControlName="passwordConfirm"
+              [clearInput]="true"
+            ></ion-input>
+            <ion-note slot="error" *ngIf="!checkPasswords"
+              >Passwords needs to be same</ion-note
+            >
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-button
+        type="submit"
+        expand="block"
+        [disabled]="!credentials.valid || !checkPasswords"
+      >
+        Sign Up</ion-button
+      >
+      <ion-button type="button" expand="block" color="secondary" routerLink=""
+        >Log in</ion-button
+      >
+    </form>
+  </ion-grid>
+  <!-- registration page -->
+</ion-content>

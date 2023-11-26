@@ -1,0 +1,60 @@
+<ion-header *ngIf="isDataAvailable" id="ion-header">
+  <ion-toolbar color="primary">
+    <ion-avatar slot="start">
+      <img
+        alt="Silhouette of a person's head"
+        [src]="user[0].photoURL ? user[0].photoURL : 'https://ionicframework.com/docs/img/demos/avatar.svg' "
+      />
+    </ion-avatar>
+
+    <p class="ion-no-margin ion-margin-start">{{getWelcomeMessage()}}</p>
+    <h2 class="ion-no-margin ion-margin-start">
+      {{user[0].displayName || user[0].firstName + " " + user[0].lastName }}
+    </h2>
+  </ion-toolbar>
+  <ion-searchbar
+    animated="true"
+    placeholder="Search event"
+    [(ngModel)]="searchTerm"
+    class="custom"
+  ></ion-searchbar>
+</ion-header>
+
+<ion-content *ngIf="isDataAvailable">
+  <ion-list-header>
+    <ion-label>Events list</ion-label>
+  </ion-list-header>
+  <ion-list *ngIf="events.length > 0" lines="none">
+    <ion-item-sliding
+      *ngFor="let event of events | filter:searchTerm"
+      [routerLink]="['./', event.id] "
+      (ionSwipe)="onFavorite(event, slidingItem)"
+      #slidingItem
+    >
+      <ion-item-options side="start">
+        <ion-item-option [color]="isFavorite(event) ? 'danger' : ''">
+          <ion-icon
+            slot="icon-only"
+            [name]="isFavorite(event) ? 'heart' : 'heart-outline'"
+            color="light"
+            (click)="onFavorite(event, slidingItem)"
+          ></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <ion-img alt="Silhouette of mountains" [src]="event.imageUrl">
+          </ion-img>
+        </ion-thumbnail>
+        <ion-label
+          >{{event.title}}
+          <p>{{event.description}}</p>
+          <p>
+            Du {{event.availableFrom.toDate() | date: 'dd/MM/YY' }} au
+            {{event.availableTo.toDate() | date: 'dd/MM/YY' }}
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
